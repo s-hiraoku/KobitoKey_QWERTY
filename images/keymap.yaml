@@ -1,0 +1,120 @@
+layers:
+  default:
+  - [Q, W, E, R, T, Y, U, I, O, P]
+  - [A, S, D, F, G, H, J, K, L, ;]
+  - [Z, X, C, V, B, N, M, ',', ., '''']
+  - - LSHFT
+    - LALT
+    - LCMD
+    - {t: SPACE, h: FUNCTION}
+    - LCTRL
+    - BSPC
+    - {t: ENTER, h: NUMBER}
+    - RSHFT
+    - RSHFT
+    - {t: /, h: LALT}
+  FUNCTION:
+  - [F1, F2, F3, F4, F5, F7, F8, F9, F10, F11]
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - F6
+    - LEFT
+    - DOWN
+    - UP
+    - RIGHT
+    - F12
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - HOME
+    - PG DN
+    - PG UP
+    - END
+    - DEL
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  NUMBER:
+  - ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+  - ['`', '''', /, \, '=', '-', '[', ']', ',', .]
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - DEL
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  MOUSE:
+  - - MUTE
+    - VOL DN
+    - VOL UP
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - '&mkp MB1'
+    - '&mkp MB3'
+    - '&mkp MB2'
+    - {t: ▽, type: trans}
+  - - {t: BT, h: '0'}
+    - {t: BT, h: '1'}
+    - {t: BT, h: '2'}
+    - {t: BT, h: '3'}
+    - {t: BT, h: '4'}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - BT CLR
+    - BT CLR ALL
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - LSHFT
+    - {t: ▽, type: trans}
+    - LCMD
+    - LALT
+    - {t: default, h: toggle}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: default, h: toggle}
+    - RALT
+combos:
+- p: [12, 13]
+  k: LANG2
+- p: [16, 17]
+  k: LANG1
+- p: [0, 1]
+  k: ESC
+- p: [10, 11]
+  k: TAB

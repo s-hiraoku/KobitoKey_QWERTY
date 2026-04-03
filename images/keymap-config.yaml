@@ -1,0 +1,32 @@
+draw_config:
+  key_w: 60.0
+  key_h: 56.0
+  split_gap: 40.0
+  key_rx: 6.0
+  key_ry: 6.0
+  dark_mode: false
+  draw_key_sides: false
+  footer_text: 'KobitoKey QWERTY'
+  svg_extra_style: |
+    svg {
+      background-color: #f8f9fc;
+    }
+    rect.key {
+      fill: #e8edf6;
+      stroke: #b0bdd4;
+      stroke-width: 1;
+    }
+    rect.trans {
+      fill: #f0f2f8;
+      stroke: #c8d0e0;
+      stroke-width: 1;
+    }
+    rect.held {
+      fill: #c8d4ec;
+      stroke: #8898c0;
+      stroke-width: 1.5;
+    }
+    rect.combo {
+      fill: #dce4f4;
+      stroke: #98a8cc;
+    }

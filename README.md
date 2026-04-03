@@ -2,6 +2,8 @@
 
 ## Keymap
 
+![Keymap](images/keymap.svg)
+
 Combos: `Q+W` = ESC, `A+S` = 英数(LANG2), `D+F` = かな(LANG1), `J+K` = TAB
 
 ### Layer 0: DEFAULT (QWERTY)
