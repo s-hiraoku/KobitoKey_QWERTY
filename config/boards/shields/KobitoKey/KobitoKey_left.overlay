@@ -2,6 +2,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <input/processors.dtsi>
 #include <input/processors/sensor_rotation.dtsi>
+#include <dt-bindings/zmk/keys.h>
 
 &xiao_serial { status = "disabled"; };
 
@@ -60,12 +61,29 @@
         status = "okay";
         rotation-angle = <24>;
     };
+
+    /* トラックボールジェスチャー用 keybind プロセッサ */
+    gesture_keybind: gesture_keybind {
+        compatible = "zmk,input-processor-keybind";
+        #input-processor-cells = <0>;
+        mode = <1>;       /* 4方向モード */
+        threshold = <5>;  /* 誤爆防止の閾値 */
+        track_remainders;
+        tick = <40>;
+        wait-ms = <50>;
+        tap-ms = <10>;
+        bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
+                   <&kp LC(LEFT)>,   /* 左: Spaces左へ */
+                   <&kp LC(UP)>,     /* 上: Mission Control */
+                   <&kp LC(DOWN)>;   /* 下: アプリウィンドウ */
+    };
 };
 
 &tb_left_listener {
     status = "okay";
     device = <&tb_left>;
 
+    /* デフォルト: スクロール動作（Layer 0-3） */
     input-processors =
             <&sensor_rotation_left>,
             <&zip_x_scaler 0 1>,
@@ -73,7 +91,20 @@
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
+
+    /* Layer 4: ジェスチャーモード（keybind → Ctrl+矢印） */
+    gesture {
+        layers = <4>;
+        input-processors =
+            <&sensor_rotation_left>,
+            <&gesture_keybind>;
+        process-next;
     };
+    gesture_suppress {
+        layers = <4>;
+        input-processors = <&zip_xy_scaler 0 1>;
+    };
+};
 
 / {
   /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {

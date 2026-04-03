@@ -8,6 +8,8 @@ manifest:
       url-base: https://github.com/hsgw
     - name: caksoylar  # <-- led
       url-base: https://github.com/caksoylar
+    - name: zettaface
+      url-base: https://github.com/zettaface
 
   projects:
     # ZMK 本体。公式の app/west.yml を取り込む
@@ -32,6 +34,11 @@ manifest:
     - name: zmk-rgbled-widget  # <-- led
       remote: caksoylar
       revision: v0.3
+
+    # Trackball keybind processor
+    - name: zmk-input-processor-keybind
+      remote: zettaface
+      revision: main
       
   self:
     path: config
