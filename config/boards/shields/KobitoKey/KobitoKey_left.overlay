@@ -2,6 +2,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <input/processors.dtsi>
 #include <input/processors/sensor_rotation.dtsi>
+#include <dt-bindings/zmk/keys.h>
 
 &xiao_serial { status = "disabled"; };
 
@@ -62,9 +63,29 @@
     };
 };
 
+/ {
+    /* トラックボールジェスチャー用 keybind プロセッサ */
+    gesture_keybind: gesture_keybind {
+        compatible = "zmk,input-processor-keybind";
+        #input-processor-cells = <0>;
+        mode = <1>;       /* 4方向モード */
+        threshold = <5>;  /* 誤爆防止の閾値 */
+        track_remainders;
+        tick = <40>;
+        wait-ms = <50>;
+        tap-ms = <10>;
+        bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
+                   <&kp LC(LEFT)>,   /* 左: Spaces左へ */
+                   <&kp LC(UP)>,     /* 上: Mission Control */
+                   <&kp LC(DOWN)>;   /* 下: アプリウィンドウ */
+    };
+};
+
+/* 通常時: スクロール動作 */
 &tb_left_listener {
     status = "okay";
     device = <&tb_left>;
+    layers = <0 1 2 3>;
 
     input-processors =
             <&sensor_rotation_left>,
@@ -74,6 +95,20 @@
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
     };
+
+/ {
+    /* ジェスチャーモード時: keybind プロセッサ */
+    tb_left_gesture_listener: tb_left_gesture_listener {
+        compatible = "zmk,input-listener";
+        status = "okay";
+        device = <&tb_left>;
+        layers = <4>;
+
+        input-processors =
+            <&sensor_rotation_left>,
+            <&gesture_keybind>;
+    };
+};
 
 / {
   /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
@@ -96,6 +131,7 @@
         0
         1
         2
+        5
         6
         7
         8
