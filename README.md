@@ -154,8 +154,8 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 |---|---|---|
 | 0 | DEFAULT | 消灯 |
 | 1 | FUNCTION | 青 |
-| 2 | NUMBER | 青 |
-| 3 | SYMBOL | 青 |
+| 2 | NUMBER | 緑 |
+| 3 | SYMBOL | 黄 |
 | 4 | MOUSE | 白 |
 | 5 | GESTURE | ピンク |
 | 6 | TAB | ピンク |
