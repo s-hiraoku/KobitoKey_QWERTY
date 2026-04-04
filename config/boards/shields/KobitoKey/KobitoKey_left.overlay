@@ -99,38 +99,39 @@
     status = "okay";
     device = <&tb_left>;
 
-    /* デフォルト: スクロール動作（Layer 0-3） */
+    /* デフォルト: スクロール動作 + マウスレイヤー自動発動 */
     input-processors =
             <&sensor_rotation_left>,
+            <&zip_temp_layer 4 10000>,
             <&zip_x_scaler 0 1>,
             <&zip_y_scaler 1 15>,
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
 
-    /* Layer 4: ジェスチャーモード（keybind → Ctrl+矢印） */
+    /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印） */
     gesture {
-        layers = <4>;
+        layers = <5>;
         input-processors =
             <&sensor_rotation_left>,
             <&gesture_keybind>;
         process-next;
     };
     gesture_suppress {
-        layers = <4>;
+        layers = <5>;
         input-processors = <&zip_xy_scaler 0 1>;
     };
 
-    /* Layer 5: タブ操作モード */
+    /* Layer 6: タブ操作モード */
     tab_gesture {
-        layers = <5>;
+        layers = <6>;
         input-processors =
             <&sensor_rotation_left>,
             <&tab_keybind>;
         process-next;
     };
     tab_suppress {
-        layers = <5>;
+        layers = <6>;
         input-processors = <&zip_xy_scaler 0 1>;
     };
 };
@@ -148,7 +149,7 @@
 
     input-processors =
         <&sensor_rotation_right>,
-        <&zip_temp_layer 3 10000>; /* オートマウスレイヤーの指定とトラボ操作及びマウスボタン押下後に滞留する時間 */
+        <&zip_temp_layer 4 10000>; /* オートマウスレイヤーの指定とトラボ操作及びマウスボタン押下後に滞留する時間 */
 };
 
 &zip_temp_layer {
