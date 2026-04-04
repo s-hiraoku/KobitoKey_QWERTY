@@ -85,7 +85,7 @@
             label = "MOUSE";
             bindings = <
 &trans        &trans        &trans        &trans  &trans  &mo 5   &mkp MB1  &mkp MB3  &mkp MB2  &mo 6
-&trans        &trans        &trans        &trans  &trans  &trans  &mkp MB4  &trans    &mkp MB5  &trans
+&trans        &trans        &trans        &trans  &trans  &mo 8   &mkp MB4  &trans    &mkp MB5  &trans
 &trans        &trans        &trans        &trans  &trans  &trans  &trans    &trans    &trans    &trans
 &kp LSHFT     &trans        &kp LCMD      &kp LALT &to 0  &trans  &trans    &trans    &to 0     &kp RALT
             >;
@@ -118,6 +118,16 @@
 &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans  &trans  &trans
 &bt BT_CLR    &bt BT_CLR_ALL &trans        &trans        &trans        &trans  &trans  &trans  &trans  &trans
 &trans        &trans         &trans        &trans        &to 0         &trans  &trans  &trans  &to 0   &trans
+            >;
+        };
+
+        layer8 {
+            label = "DESKTOP";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &mo 8   &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &to 0   &trans  &trans  &trans  &to 0   &trans
             >;
         };
     };

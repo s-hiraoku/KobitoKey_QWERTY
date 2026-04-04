@@ -78,6 +78,21 @@
     };
 
     /* ブラウザタブ操作用 keybind プロセッサ */
+    /* デスクトップ操作用 keybind プロセッサ */
+    desktop_keybind: desktop_keybind {
+        compatible = "zmk,input-processor-keybind";
+        #input-processor-cells = <0>;
+        mode = <1>;       /* 4方向モード */
+        threshold = <3>;   /* 発動に必要な最小移動量 */
+        tick = <80>;       /* 1回の発動に必要な移動量 */
+        wait-ms = <300>;   /* 連続発動の間隔 */
+        tap-ms = <10>;
+        bindings = <&kp LG(TAB)>,          /* 右: アプリ切替 (Cmd+Tab) */
+                   <&kp LG(LS(TAB))>,    /* 左: アプリ逆切替 (Cmd+Shift+Tab) */
+                   <&kp F4>,             /* 上: Launchpad */
+                   <&kp F11>;            /* 下: デスクトップを表示 */
+    };
+
     tab_keybind: tab_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
@@ -132,6 +147,19 @@
         layers = <6>;
         input-processors = <&zip_xy_scaler 0 1>;
     };
+
+    /* Layer 8: デスクトップ操作モード */
+    desktop_gesture {
+        layers = <8>;
+        input-processors =
+            <&sensor_rotation_left>,
+            <&desktop_keybind>;
+        process-next;
+    };
+    desktop_suppress {
+        layers = <8>;
+        input-processors = <&zip_xy_scaler 0 1>;
+    };
 };
 
 / {
@@ -154,6 +182,7 @@
     excluded-positions = <
         5
         6
+        15
         7
         8
         9
