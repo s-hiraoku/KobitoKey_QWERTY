@@ -115,16 +115,16 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  - - LSHFT
-    - {t: ▽, type: trans}
-    - LCMD
-    - LALT
-    - {t: default, h: toggle}
+  - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: default, h: toggle}
-    - RALT
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: default, h: toggle}
+    - {t: ▽, type: trans}
   GESTURE:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
