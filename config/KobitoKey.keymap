@@ -78,20 +78,20 @@
         layer4 {
             label = "GESTURE";
             bindings = <
+&trans  &trans  &trans  &trans  &trans  &mo 4   &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &to 0   &trans  &trans  &trans  &to 0   &trans
             >;
         };
 
         layer5 {
             label = "TAB";
             bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &mo 5
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &to 0   &trans  &trans  &trans  &to 0   &trans
             >;
         };
     };
