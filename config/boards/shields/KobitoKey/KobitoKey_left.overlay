@@ -67,9 +67,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;       /* 4方向モード */
-        threshold = <5>;  /* 誤爆防止の閾値 */
+        threshold = <2>;  /* CPI=200に合わせて低めに */
         track_remainders;
-        tick = <40>;
+        tick = <15>;      /* 少ない移動量でも反応 */
         wait-ms = <50>;
         tap-ms = <10>;
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
@@ -83,9 +83,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;       /* 4方向モード */
-        threshold = <5>;
+        threshold = <2>;  /* CPI=200に合わせて低めに */
         track_remainders;
-        tick = <40>;
+        tick = <15>;      /* 少ない移動量でも反応 */
         wait-ms = <50>;
         tap-ms = <10>;
         bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
