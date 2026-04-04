@@ -115,12 +115,12 @@
     /* デフォルト: スクロール動作 + マウスレイヤー自動発動 */
     input-processors =
             <&sensor_rotation_left>,
-            <&zip_temp_layer 4 10000>,
             <&zip_x_scaler 0 1>,
             <&zip_y_scaler 1 15>,
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_temp_layer 4 10000>;
 
     /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印） */
     gesture {
