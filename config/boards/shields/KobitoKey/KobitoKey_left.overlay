@@ -67,9 +67,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;       /* 4方向モード */
-        threshold = <10>; /* 誤爆防止: ある程度動かさないと発動しない */
-        tick = <200>;     /* 1回の発動に大きな移動量が必要 */
-        wait-ms = <300>;  /* 連続発動を抑制 */
+        threshold = <5>;   /* 発動に必要な最小移動量 */
+        tick = <80>;       /* 1回の発動に必要な移動量 */
+        wait-ms = <200>;   /* 連続発動の間隔 */
         tap-ms = <10>;
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
                    <&kp LC(LEFT)>,   /* 左: Spaces左へ */
@@ -82,10 +82,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;       /* 4方向モード */
-        threshold = <2>;  /* CPI=200に合わせて低めに */
-        track_remainders;
-        tick = <15>;      /* 少ない移動量でも反応 */
-        wait-ms = <50>;
+        threshold = <5>;   /* 発動に必要な最小移動量 */
+        tick = <80>;       /* 1回の発動に必要な移動量 */
+        wait-ms = <200>;   /* 連続発動の間隔 */
         tap-ms = <10>;
         bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
                    <&kp LC(LS(TAB))>,    /* 左: 前のタブ */
