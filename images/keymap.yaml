@@ -13,8 +13,8 @@ layers:
     - BSPC
     - {t: ENTER, h: NUMBER}
     - {t: RSHFT, h: SYMBOL}
-    - RSHFT
-    - {t: /, h: LALT}
+    - LALT
+    - {t: /, h: RSHFT}
   FUNCTION:
   - [F1, F2, F3, F4, F5, F7, F8, F9, F10, F11]
   - - {t: ▽, type: trans}
