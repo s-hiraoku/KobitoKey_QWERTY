@@ -124,8 +124,8 @@
         layer8 {
             label = "DESKTOP";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &mo 8   &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &mo 8   &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &to 0   &trans  &trans  &trans  &to 0   &trans
             >;
