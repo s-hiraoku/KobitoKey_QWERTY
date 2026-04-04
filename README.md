@@ -21,6 +21,7 @@ Combos: `Q+W` = ESC, `A+S` = TAB, `D+F` = 英数(LANG2), `J+K` = かな(LANG1)
 │LSHFT │ LALT │ LCMD │SPACE/L1  │LCTRL │  │ BSPC │ENTER/L2  │RSHFT/L3│RSHFT │ ALT+/   │
 └──────┴──────┴──────┴──────────┴──────┘  └──────┴──────────┴──────┴──────┴──────────┘
 ```
+※ RSHFT/L3: タップ=Shift（単発）、長押し=SYMBOLレイヤー。Shift+キーの大文字入力には右隣のRSHFTを使用。
 
 ### Layer 1: FUNCTION + NAV (SPACE hold)
 
