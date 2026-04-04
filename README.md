@@ -1,5 +1,7 @@
 # KobitoKey_QWERTY
 
+![KobitoKey](images/kobito-keyboard.JPG)
+
 ## Keymap
 
 ![Keymap](images/keymap.svg)
