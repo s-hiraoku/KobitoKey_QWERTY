@@ -78,10 +78,10 @@
         layer4 {
             label = "GESTURE";
             bindings = <
-&trans          &trans         &kp LC(UP)    &trans         &trans   &trans  &trans  &trans  &trans  &trans
-&trans          &kp LC(LEFT)   &kp LC(DOWN)  &kp LC(RIGHT)  &trans   &trans  &trans  &trans  &trans  &trans
-&trans          &trans         &trans        &trans         &kp F4   &trans  &trans  &trans  &trans  &trans
-&trans          &trans         &trans        &trans         &trans   &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
     };
