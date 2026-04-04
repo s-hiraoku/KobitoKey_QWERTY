@@ -85,9 +85,9 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   MOUSE:
-  - - MUTE
-    - VOL DN
-    - VOL UP
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - GESTURE
@@ -95,18 +95,18 @@ layers:
     - '&mkp MB3'
     - '&mkp MB2'
     - TAB
-  - - {t: BT, h: '0'}
-    - {t: BT, h: '1'}
-    - {t: BT, h: '2'}
-    - {t: BT, h: '3'}
-    - {t: BT, h: '4'}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - '&mkp MB4'
     - {t: ▽, type: trans}
     - '&mkp MB5'
     - {t: ▽, type: trans}
-  - - BT CLR
-    - BT CLR ALL
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -207,6 +207,47 @@ layers:
     - {t: ▽, type: trans}
     - {t: default, h: toggle}
     - {t: ▽, type: trans}
+  BT:
+  - - MUTE
+    - VOL DN
+    - VOL UP
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: BT, h: '0'}
+    - {t: BT, h: '1'}
+    - {t: BT, h: '2'}
+    - {t: BT, h: '3'}
+    - {t: BT, h: '4'}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - BT CLR
+    - BT CLR ALL
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: default, h: toggle}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: default, h: toggle}
+    - {t: ▽, type: trans}
 combos:
 - p: [12, 13]
   k: LANG2
@@ -216,3 +257,5 @@ combos:
   k: ESC
 - p: [10, 11]
   k: TAB
+- p: [35, 36]
+  k: {t: BT, h: toggle}
