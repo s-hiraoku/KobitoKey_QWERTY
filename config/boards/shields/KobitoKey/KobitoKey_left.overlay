@@ -77,6 +77,22 @@
                    <&kp LC(UP)>,     /* 上: Mission Control */
                    <&kp LC(DOWN)>;   /* 下: アプリウィンドウ */
     };
+
+    /* ブラウザタブ操作用 keybind プロセッサ */
+    tab_keybind: tab_keybind {
+        compatible = "zmk,input-processor-keybind";
+        #input-processor-cells = <0>;
+        mode = <1>;       /* 4方向モード */
+        threshold = <5>;
+        track_remainders;
+        tick = <40>;
+        wait-ms = <50>;
+        tap-ms = <10>;
+        bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
+                   <&kp LC(LS(TAB))>,    /* 左: 前のタブ */
+                   <&kp LG(T)>,          /* 上: 新規タブ */
+                   <&kp LG(W)>;          /* 下: タブを閉じる */
+    };
 };
 
 &tb_left_listener {
@@ -102,6 +118,19 @@
     };
     gesture_suppress {
         layers = <4>;
+        input-processors = <&zip_xy_scaler 0 1>;
+    };
+
+    /* Layer 5: タブ操作モード */
+    tab_gesture {
+        layers = <5>;
+        input-processors =
+            <&sensor_rotation_left>,
+            <&tab_keybind>;
+        process-next;
+    };
+    tab_suppress {
+        layers = <5>;
         input-processors = <&zip_xy_scaler 0 1>;
     };
 };
@@ -131,6 +160,9 @@
         6
         7
         8
+        9
+        16
+        18
         10
         11
         12
