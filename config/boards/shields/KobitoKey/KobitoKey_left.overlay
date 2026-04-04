@@ -148,16 +148,16 @@
         input-processors = <&zip_xy_scaler 0 1>;
     };
 
-    /* Layer 8: デスクトップ操作モード */
+    /* Layer 7: デスクトップ操作モード */
     desktop_gesture {
-        layers = <8>;
+        layers = <7>;
         input-processors =
             <&sensor_rotation_left>,
             <&desktop_keybind>;
         process-next;
     };
     desktop_suppress {
-        layers = <8>;
+        layers = <7>;
         input-processors = <&zip_xy_scaler 0 1>;
     };
 };

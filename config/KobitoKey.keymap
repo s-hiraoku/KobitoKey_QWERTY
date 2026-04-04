@@ -35,7 +35,7 @@
         combo_bt {
             timeout-ms = <50>;
             key-positions = <35 36>;
-            bindings = <&to 7>;
+            bindings = <&to 8>;
         };
     };
 
@@ -85,7 +85,7 @@
             label = "MOUSE";
             bindings = <
 &to 0         &to 0         &to 0         &to 0   &to 0   &mo 5   &mkp MB1  &mkp MB3  &mkp MB2  &mo 6
-&to 0         &to 0         &to 0         &to 0   &to 0   &mo 8   &mkp MB4  &to 0     &mkp MB5  &to 0
+&to 0         &to 0         &to 0         &to 0   &to 0   &mo 7   &mkp MB4  &to 0     &mkp MB5  &to 0
 &to 0         &to 0         &to 0         &to 0   &to 0   &to 0   &to 0     &to 0     &to 0     &to 0
 &trans        &trans        &trans        &trans   &to 0  &trans  &trans    &trans    &to 0     &trans
             >;
@@ -112,22 +112,22 @@
         };
 
         layer7 {
+            label = "DESKTOP";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &mo 7   &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &to 0   &trans  &trans  &trans  &to 0   &trans
+            >;
+        };
+
+        layer8 {
             label = "BT";
             bindings = <
 &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &trans  &trans          &trans  &trans  &trans  &trans  &trans
 &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans  &trans  &trans  &trans  &trans
 &bt BT_CLR    &bt BT_CLR_ALL &trans        &trans        &trans        &trans  &trans  &trans  &trans  &trans
 &trans        &trans         &trans        &trans        &to 0         &trans  &trans  &trans  &to 0   &trans
-            >;
-        };
-
-        layer8 {
-            label = "DESKTOP";
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &mo 8   &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &to 0   &trans  &trans  &trans  &to 0   &trans
             >;
         };
     };
