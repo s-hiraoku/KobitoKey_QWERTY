@@ -10,9 +10,9 @@ layers:
     - LCMD
     - {t: SPACE, h: FUNCTION}
     - LCTRL
-    - {t: BSPC, h: SYMBOL}
+    - BSPC
     - {t: ENTER, h: NUMBER}
-    - RSHFT
+    - {t: RSHFT, h: SYMBOL}
     - RSHFT
     - {t: /, h: LALT}
   FUNCTION:
@@ -79,9 +79,9 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {type: held}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   MOUSE:
