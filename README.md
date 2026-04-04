@@ -18,11 +18,11 @@ Combos: `Q+W` = ESC, `A+S` = TAB, `D+F` = 英数(LANG2), `J+K` = かな(LANG1)
 ├──────┼──────┼──────┼──────────┼──────┤  ├──────┼──────────┼──────┼──────┼──────────┤
 │  Z   │  X   │  C   │    V     │  B   │  │  N   │    M     │  ,   │  .   │    '     │
 ├──────┼──────┼──────┼──────────┼──────┤  ├──────┼──────────┼──────┼──────┼──────────┤
-│LSHFT │ LALT │ LCMD │SPACE/L1  │LCTRL │  │ BSPC │ENTER/L2  │ L3   │ LALT | RSHFT+/  │
+│LSHFT │ LALT │ LCMD │SPACE/L1  │LCTRL │  │ BSPC │ENTER/L2  │SYMBOL│ LALT │RSHFT+/  │
 └──────┴──────┴──────┴──────────┴──────┘  └──────┴──────────┴──────┴──────┴──────────┘
 ```
 
-※ RSHFT/L3: タップ=Shift（単発）、長押し=SYMBOLレイヤー。Shift+キーの大文字入力には右端のRSHFT+/を使用。
+※ SYMBOL: SYMBOLレイヤー専用キー（長押しで発動）。大文字入力には右端のRSHFT+/を使用。
 
 ### Layer 1: FUNCTION + NAV (SPACE hold)
 

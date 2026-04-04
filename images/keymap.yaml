@@ -12,7 +12,7 @@ layers:
     - LCTRL
     - BSPC
     - {t: ENTER, h: NUMBER}
-    - {t: RSHFT, h: SYMBOL}
+    - {t: SYMBOL, h: hold}
     - LALT
     - {t: /, h: RSHFT}
   FUNCTION:
