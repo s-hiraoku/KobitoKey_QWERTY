@@ -87,8 +87,8 @@
         tick = <80>;       /* 1回の発動に必要な移動量 */
         wait-ms = <300>;   /* 連続発動の間隔 */
         tap-ms = <10>;
-        bindings = <&none>,                  /* 右: 未使用 */
-                   <&none>,              /* 左: 未使用 */
+        bindings = <&kp RIGHT>,             /* 右: Launchpad次ページ */
+                   <&kp LEFT>,            /* 左: Launchpad前ページ */
                    <&kp F4>,             /* 上: Launchpad */
                    <&kp F11>;            /* 下: デスクトップを表示 */
     };
