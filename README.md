@@ -238,6 +238,16 @@ gh run download -R s-hiraoku/KobitoKey_QWERTY -D ~/Downloads/KobitoKey_firmware
 3. Mac側で「システム設定 → Bluetooth」から古いKobitoKeyを削除
 4. 新しくペアリング
 
+## 使用モジュール
+
+| モジュール | 用途 | リポジトリ |
+|---|---|---|
+| zmk-pmw3610-driver | PMW3610トラックボールドライバ | https://github.com/badjeff/zmk-pmw3610-driver |
+| zmk-feature-sensor_rotation | センサー回転補正 | https://github.com/hsgw/zmk-feature-sensor_rotation |
+| zmk-rgbled-widget | RGB LEDウィジェット | https://github.com/caksoylar/zmk-rgbled-widget |
+| zmk-input-processor-keybind | トラックボール→キー変換（ジェスチャー） | https://github.com/zettaface/zmk-input-processor-keybind |
+| zmk-pointing-acceleration | トラックボール加速度 | https://github.com/oleksandrmaslov/zmk-pointing-acceleration |
+
 ## 参考
 
 - https://note.com/11_50iii/n/n75cff4d3502c
