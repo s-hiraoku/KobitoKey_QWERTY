@@ -62,6 +62,18 @@
         rotation-angle = <24>;
     };
 
+    /* トラックボール加速度設定 */
+    pointer_accel: pointer_accel {
+        compatible = "zmk,input-processor-pointing-acceleration";
+        #input-processor-cells = <0>;
+        min-factor = <800>;              /* 低速時: 0.8倍（精密操作） */
+        max-factor = <3000>;             /* 高速時: 3.0倍（素早い移動） */
+        speed-threshold = <200>;         /* 加速開始の速度 */
+        speed-max = <1500>;              /* 最大加速に達する速度 */
+        acceleration-exponent = <2>;     /* 二次曲線（なめらかな加速） */
+        track-remainders;
+    };
+
     /* トラックボールジェスチャー用 keybind プロセッサ */
     gesture_keybind: gesture_keybind {
         compatible = "zmk,input-processor-keybind";
@@ -115,6 +127,7 @@
     /* デフォルト: スクロール動作 + マウスレイヤー自動発動 */
     input-processors =
             <&sensor_rotation_left>,
+            <&pointer_accel>,
             <&zip_x_scaler 0 1>,
             <&zip_y_scaler 1 15>,
             <&zip_xy_to_scroll_mapper>,
@@ -166,7 +179,7 @@
   /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
     compatible = "zmk,input-processor-temp-layer";
     #input-processor-cells = <2>;
-    require-prior-idle-ms = <350>; /* キー押下後、何msオートマウスレイヤに入らないようにするか、誤爆防止 */
+    require-prior-idle-ms = <150>; /* キー押下後、何msオートマウスレイヤに入らないようにするか、誤爆防止 */
   };
 };
 
@@ -175,6 +188,7 @@
 
     input-processors =
         <&sensor_rotation_right>,
+        <&pointer_accel>,
         <&zip_temp_layer 4 10000>; /* オートマウスレイヤーの指定とトラボ操作及びマウスボタン押下後に滞留する時間 */
 };
 

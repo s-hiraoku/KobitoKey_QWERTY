@@ -10,6 +10,8 @@ manifest:
       url-base: https://github.com/caksoylar
     - name: zettaface
       url-base: https://github.com/zettaface
+    - name: oleksandrmaslov
+      url-base: https://github.com/oleksandrmaslov
 
   projects:
     # ZMK 本体。公式の app/west.yml を取り込む
@@ -38,6 +40,11 @@ manifest:
     # Trackball keybind processor
     - name: zmk-input-processor-keybind
       remote: zettaface
+      revision: main
+
+    # Trackball acceleration
+    - name: zmk-pointing-acceleration
+      remote: oleksandrmaslov
       revision: main
       
   self:
