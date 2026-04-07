@@ -110,7 +110,7 @@
     };
 };
 
-/* トラックボール加速度設定 */
+/* 左トラックボール加速度設定（スクロール用） */
 &pointer_accel {
     input-type = <INPUT_EV_REL>;
     track-remainders;
@@ -119,6 +119,21 @@
     speed-threshold = <1200>;        /* 加速開始の速度 */
     speed-max = <6000>;              /* 最大加速に達する速度 */
     acceleration-exponent = <2>;     /* 二次曲線（なめらかな加速） */
+};
+
+/ {
+    /* 右トラックボール加速度設定（ポインター用） */
+    pointer_accel_right: pointer_accel_right {
+        compatible = "zmk,input-processor-acceleration";
+        #input-processor-cells = <0>;
+        input-type = <INPUT_EV_REL>;
+        track-remainders;
+        min-factor = <250>;              /* 低速時: 0.25倍（精密操作） */
+        max-factor = <3000>;             /* 高速時: 3.0倍（素早い移動） */
+        speed-threshold = <1200>;        /* 加速開始の速度 */
+        speed-max = <6000>;              /* 最大加速に達する速度 */
+        acceleration-exponent = <2>;     /* 二次曲線（なめらかな加速） */
+    };
 };
 
 &tb_left_listener {
@@ -189,7 +204,7 @@
 
     input-processors =
         <&sensor_rotation_right>,
-        <&pointer_accel>,
+        <&pointer_accel_right>,
         <&zip_temp_layer 4 10000>; /* オートマウスレイヤーの指定とトラボ操作及びマウスボタン押下後に滞留する時間 */
 };
 
