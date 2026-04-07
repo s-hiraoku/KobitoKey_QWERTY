@@ -114,7 +114,7 @@
 &pointer_accel {
     input-type = <INPUT_EV_REL>;
     track-remainders;
-    min-factor = <800>;              /* 低速時: 0.8倍（精密操作） */
+    min-factor = <500>;              /* 低速時: 0.5倍（精密操作） */
     max-factor = <3000>;             /* 高速時: 3.0倍（素早い移動） */
     speed-threshold = <1200>;        /* 加速開始の速度 */
     speed-max = <6000>;              /* 最大加速に達する速度 */
