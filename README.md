@@ -145,7 +145,13 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 - コンボでESC/TAB/英数/かなをLayer 0から直接入力可能
 - 左トラックボール: スクロール + ジェスチャー（Layer 5/6/7時）
 - 右トラックボール: マウスカーソル + Layer 4自動発動
-- トラックボール加速度: 低速時0.8倍（精密）、高速時3.0倍（素早い移動）、二次曲線カーブ
+- トラックボール操作感: **Magic Trackpad風**にチューニング
+  - 右（ポインター）: min 0.9倍 / max 4.0倍 / 三次カーブ — 低速は等倍に近く、高速で大胆に伸ばす
+  - 左（スクロール）: min 0.8倍 / max 2.5倍 / 三次カーブ — 粘ってから伸びる慣性風の質感
+  - ジェスチャー（Layer 5/6/7）: 用途の重さに応じて threshold/tick/wait-ms を段階設定（誤爆防止）
+    - Layer 5 Spaces: threshold=8, tick=120, wait-ms=450
+    - Layer 6 タブ: threshold=10, tick=140, wait-ms=400
+    - Layer 7 デスクトップ: threshold=15, tick=220, wait-ms=800
 
 ## LED色
 
@@ -161,7 +167,7 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 | 5 | GESTURE | ピンク |
 | 6 | TAB | ピンク |
 | 7 | DESKTOP | ピンク |
-| 8 | BT | 水色 |
+| 8 | BT | 赤 |
 
 ## 評価
 
@@ -174,7 +180,7 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 - **トラックボールジェスチャー3系統** — Spaces/MC、タブ操作、デスクトップ/Launchpadを使い分け（moNa 2方式）
 - **BT/ボリュームをLayer 8に完全隔離** — BSPC+ENTERコンボでのみ発動、誤爆の心配なし
 - **Layer 5/6/7にスタック防止策** — MO()自己参照で安定動作
-- **LED色でレイヤーが一目瞭然** — FUNCTION=青、NUMBER=緑、SYMBOL=黄、MOUSE=白、ジェスチャー系=ピンク、BT=水色
+- **LED色でレイヤーが一目瞭然** — FUNCTION=青、NUMBER=緑、SYMBOL=黄、MOUSE=白、ジェスチャー系=ピンク、BT=赤
 
 ### 改善候補
 
