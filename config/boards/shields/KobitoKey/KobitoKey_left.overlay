@@ -69,9 +69,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <12>;   /* 誤爆防止、意図的な動きだけ発動 */
-        tick = <180>;       /* 1ジェスチャー=1アクション */
-        wait-ms = <600>;    /* Spaces切替アニメと噛み合う間隔 */
+        threshold = <8>;    /* 左右の小さな動きも拾えるように軽く */
+        tick = <120>;       /* 1画面送りに必要な移動量を削減、左右の反応改善 */
+        wait-ms = <450>;    /* Spacesアニメ直後に次の入力を受け付ける */
         tap-ms = <10>;
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
                    <&kp LC(LEFT)>,   /* 左: Spaces左へ */
