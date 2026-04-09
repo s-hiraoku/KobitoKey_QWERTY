@@ -64,14 +64,14 @@
     };
 
 
-    /* トラックボールジェスチャー用 keybind プロセッサ */
+    /* トラックボールジェスチャー用 keybind プロセッサ（Magic Trackpad 3本指スワイプ相当） */
     gesture_keybind: gesture_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
-        mode = <1>;       /* 4方向モード */
-        threshold = <3>;   /* 発動に必要な最小移動量 */
-        tick = <80>;       /* 1回の発動に必要な移動量 */
-        wait-ms = <300>;   /* 連続発動の間隔 */
+        mode = <1>;         /* 4方向モード */
+        threshold = <12>;   /* 誤爆防止、意図的な動きだけ発動 */
+        tick = <180>;       /* 1ジェスチャー=1アクション */
+        wait-ms = <600>;    /* Spaces切替アニメと噛み合う間隔 */
         tap-ms = <10>;
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
                    <&kp LC(LEFT)>,   /* 左: Spaces左へ */
@@ -80,14 +80,14 @@
     };
 
     /* ブラウザタブ操作用 keybind プロセッサ */
-    /* デスクトップ操作用 keybind プロセッサ */
+    /* デスクトップ操作用 keybind プロセッサ（Magic Trackpad 4本指ピンチ相当） */
     desktop_keybind: desktop_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
-        mode = <1>;       /* 4方向モード */
-        threshold = <3>;   /* 発動に必要な最小移動量 */
-        tick = <80>;       /* 1回の発動に必要な移動量 */
-        wait-ms = <300>;   /* 連続発動の間隔 */
+        mode = <1>;         /* 4方向モード */
+        threshold = <15>;   /* 最重：絶対に誤爆させない */
+        tick = <220>;       /* 確実に1回だけ発動 */
+        wait-ms = <800>;    /* Launchpadアニメ完了を待つ */
         tap-ms = <10>;
         bindings = <&kp RIGHT>,             /* 右: Launchpad次ページ */
                    <&kp LEFT>,            /* 左: Launchpad前ページ */
@@ -98,10 +98,10 @@
     tab_keybind: tab_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
-        mode = <1>;       /* 4方向モード */
-        threshold = <3>;   /* 発動に必要な最小移動量 */
-        tick = <80>;       /* 1回の発動に必要な移動量 */
-        wait-ms = <300>;   /* 連続発動の間隔 */
+        mode = <1>;         /* 4方向モード */
+        threshold = <10>;   /* 連続切替があるので少し軽め */
+        tick = <140>;       /* 連発は可能だが過敏ではない */
+        wait-ms = <400>;    /* タブは連続切替需要あり、短めキープ */
         tap-ms = <10>;
         bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
                    <&kp LC(LS(TAB))>,    /* 左: 前のタブ */
@@ -110,29 +110,29 @@
     };
 };
 
-/* 左トラックボール加速度設定（スクロール用） */
+/* 左トラックボール加速度設定（スクロール用 / Magic Trackpad 慣性スクロール風） */
 &pointer_accel {
     input-type = <INPUT_EV_REL>;
     track-remainders;
-    min-factor = <400>;              /* 低速時: 0.4倍（精密操作） */
-    max-factor = <3000>;             /* 高速時: 3.0倍（素早い移動） */
-    speed-threshold = <1200>;        /* 加速開始の速度 */
-    speed-max = <6000>;              /* 最大加速に達する速度 */
-    acceleration-exponent = <2>;     /* 二次曲線（なめらかな加速） */
+    min-factor = <800>;              /* 0.8倍: 読書時の1行スクロールが軽快 */
+    max-factor = <2500>;             /* 2.5倍: y_scaler×15と掛け算で実効37.5倍 */
+    speed-threshold = <1400>;        /* 立ち上がりをやや早く */
+    speed-max = <6000>;
+    acceleration-exponent = <3>;     /* 三次: 粘ってから急に伸びる=慣性風 */
 };
 
 / {
-    /* 右トラックボール加速度設定（ポインター用） */
+    /* 右トラックボール加速度設定（ポインター用 / Magic Trackpad 風） */
     pointer_accel_right: pointer_accel_right {
         compatible = "zmk,input-processor-acceleration";
         #input-processor-cells = <0>;
         input-type = <INPUT_EV_REL>;
         track-remainders;
-        min-factor = <250>;              /* 低速時: 0.25倍（精密操作） */
-        max-factor = <3000>;             /* 高速時: 3.0倍（素早い移動） */
-        speed-threshold = <1200>;        /* 加速開始の速度 */
-        speed-max = <6000>;              /* 最大加速に達する速度 */
-        acceleration-exponent = <2>;     /* 二次曲線（なめらかな加速） */
+        min-factor = <900>;              /* 0.9倍: ほぼ等倍、低速でも素直に動く */
+        max-factor = <4000>;             /* 4.0倍: 高速で大胆に伸ばす */
+        speed-threshold = <1600>;        /* 中速ゾーンを粘らせる */
+        speed-max = <7500>;              /* 加速飽和を遠くに置く */
+        acceleration-exponent = <3>;     /* 三次: 粘ってから急に伸びるカーブ */
     };
 };
 
