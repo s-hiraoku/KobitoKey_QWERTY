@@ -2,7 +2,7 @@
 
 Magic Trackpad 風の操作感を目指した右トラックボール（ポインター）のチューニング記録。
 
-**現在の対応状況: Phase 2 まで適用済み**
+**現在の対応状況: 右トラックボールは Phase 3 まで適用済み**
 
 ## 目標
 
@@ -60,7 +60,7 @@ pointer_accel_right {
 
 **リスク**: 小。PMW3610 の定格内（最大 3200 CPI）。
 
-### Phase 3: ポーリングレート向上 ⏸ 未適用
+### Phase 3: ポーリングレート向上 + 低速域の微調整 ✅ 適用済み
 
 `CONFIG_PMW3610_REPORT_INTERVAL_MIN` を下げて報告レートを上げる。カーソルの滑らかさに直結。
 
@@ -73,7 +73,9 @@ CONFIG_PMW3610_REPORT_INTERVAL_MIN=8    # 12→8 (約83Hz→125Hz)
 
 **リスク**: 中。PMW3610 は低電力が売りなので、ポーリングレート増でバッテリー消費が増加。BLE 右手子機の電池持ちが1〜2日短くなる可能性。左右の充電タイミングがズレる副作用あり。
 
-**踏み切る判断基準**: 現状の不満が「粒っぽい、カクつく」なら有効。「低速で止まらない、滑る」なら Phase 2 で十分、Phase 3 は不要。
+**実施内容**: 右側のみ `CONFIG_PMW3610_REPORT_INTERVAL_MIN=8` を適用し、accel も少しだけ減速方向へ微調整した。
+
+**効果**: 粒状感を減らしつつ、移動距離を 5〜10% 程度短くして小さいターゲットで止めやすくする。
 
 ## 現在の右トラックボール最終値
 
@@ -87,18 +89,23 @@ tb_right: trackball@0 {
 `config/boards/shields/KobitoKey/KobitoKey_left.overlay`:
 ```dts
 pointer_accel_right: pointer_accel_right {
-    min-factor = <700>;
-    max-factor = <2500>;
-    speed-threshold = <2200>;
-    speed-max = <9000>;
+    min-factor = <620>;
+    max-factor = <2200>;
+    speed-threshold = <2500>;
+    speed-max = <10000>;
     acceleration-exponent = <3>;
     track-remainders;
 };
 ```
 
+`config/boards/shields/KobitoKey/KobitoKey_right.conf`:
+```conf
+CONFIG_PMW3610_REPORT_INTERVAL_MIN=8
+```
+
 **Phase 2 後の微調整** (2026-04-10): 当初値 (min=750, max=3200, threshold=2000, speed-max=8500) では
-Magic Trackpad より速すぎたため、高速域を抑える方向で再調整。実効 CPI で見ると高速域が
-Phase 2 前より約1.4倍速くなっていたのが原因。
+Magic Trackpad より速すぎたため、高速域を抑える方向で再調整した。さらに右側の粒状感を減らすため、
+Phase 3 で報告間隔を 12 から 8 に上げ、accel を少しだけ減速方向へ振って低速の止めやすさを強めた。
 
 ## 左トラックボール（参考: スクロール用）
 
@@ -118,11 +125,11 @@ Phase 2 前より約1.4倍速くなっていたのが原因。
 
 | Layer | 用途 | threshold | tick | wait-ms |
 |---|---|---|---|---|
-| 5 | Spaces/Mission Control | 8 | 80 | 450 |
+| 5 | Spaces/Mission Control | 6 | 160 | 650 |
 | 6 | ブラウザタブ | 10 | 140 | 400 |
 | 7 | Launchpad/デスクトップ | 15 | 220 | 800 |
 
-Layer 5 は左右スワイプの反応改善のため他より軽めに設定（トラックボールは左右の実効移動量が小さくなりがちなため）。
+Layer 5 は初動を拾いやすくしつつ二重入力を避けるため、threshold は軽く、tick と wait-ms は重めに設定している。
 
 ## 参考資料
 
