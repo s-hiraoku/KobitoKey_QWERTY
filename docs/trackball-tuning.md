@@ -87,14 +87,18 @@ tb_right: trackball@0 {
 `config/boards/shields/KobitoKey/KobitoKey_left.overlay`:
 ```dts
 pointer_accel_right: pointer_accel_right {
-    min-factor = <750>;
-    max-factor = <3200>;
-    speed-threshold = <2000>;
-    speed-max = <8500>;
+    min-factor = <700>;
+    max-factor = <2500>;
+    speed-threshold = <2200>;
+    speed-max = <9000>;
     acceleration-exponent = <3>;
     track-remainders;
 };
 ```
+
+**Phase 2 後の微調整** (2026-04-10): 当初値 (min=750, max=3200, threshold=2000, speed-max=8500) では
+Magic Trackpad より速すぎたため、高速域を抑える方向で再調整。実効 CPI で見ると高速域が
+Phase 2 前より約1.4倍速くなっていたのが原因。
 
 ## 左トラックボール（参考: スクロール用）
 
@@ -114,7 +118,7 @@ pointer_accel_right: pointer_accel_right {
 
 | Layer | 用途 | threshold | tick | wait-ms |
 |---|---|---|---|---|
-| 5 | Spaces/Mission Control | 8 | 120 | 450 |
+| 5 | Spaces/Mission Control | 8 | 80 | 450 |
 | 6 | ブラウザタブ | 10 | 140 | 400 |
 | 7 | Launchpad/デスクトップ | 15 | 220 | 800 |
 
