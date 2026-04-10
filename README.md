@@ -145,8 +145,8 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 - コンボでESC/TAB/英数/かなをLayer 0から直接入力可能
 - 左トラックボール: スクロール + ジェスチャー（Layer 5/6/7時）
 - 右トラックボール: マウスカーソル + Layer 4自動発動
-- トラックボール操作感: **Magic Trackpad風**にチューニング
-  - 右（ポインター）: min 0.9倍 / max 4.0倍 / 三次カーブ — 低速は等倍に近く、高速で大胆に伸ばす
+- トラックボール操作感: **Magic Trackpad風**にチューニング（詳細は [docs/trackball-tuning.md](docs/trackball-tuning.md)、Phase 2 まで適用済み）
+  - 右（ポインター）: CPI=800, min 0.75倍 / max 3.2倍 / 三次カーブ / threshold=2000, speed-max=8500 — 低速の張り付き感と中速の粘りを強化
   - 左（スクロール）: min 0.8倍 / max 2.5倍 / 三次カーブ — 粘ってから伸びる慣性風の質感
   - ジェスチャー（Layer 5/6/7）: 用途の重さに応じて threshold/tick/wait-ms を段階設定（誤爆防止）
     - Layer 5 Spaces: threshold=8, tick=120, wait-ms=450
