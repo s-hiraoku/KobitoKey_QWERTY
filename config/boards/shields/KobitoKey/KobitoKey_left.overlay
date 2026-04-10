@@ -70,7 +70,7 @@
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
         threshold = <8>;    /* 左右の小さな動きも拾えるように軽く */
-        tick = <120>;       /* 1画面送りに必要な移動量を削減、左右の反応改善 */
+        tick = <80>;        /* rotation補正で目減りする左右方向に合わせて更に削減 */
         wait-ms = <450>;    /* Spacesアニメ直後に次の入力を受け付ける */
         tap-ms = <10>;
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
@@ -122,16 +122,16 @@
 };
 
 / {
-    /* 右トラックボール加速度設定（ポインター用 / Magic Trackpad 風 Phase2） */
+    /* 右トラックボール加速度設定（ポインター用 / Magic Trackpad 風 Phase2 調整版） */
     pointer_accel_right: pointer_accel_right {
         compatible = "zmk,input-processor-acceleration";
         #input-processor-cells = <0>;
         input-type = <INPUT_EV_REL>;
         track-remainders;
-        min-factor = <750>;              /* 0.75倍: CPI800と相殺して低速の張り付き感を演出 */
-        max-factor = <3200>;             /* 3.2倍: 高速の予測可能性を向上 */
-        speed-threshold = <2000>;        /* 低速ゾーン拡大、粘りを強化 */
-        speed-max = <8500>;              /* 加速ピークを遠くへ、中速の粘りを長く */
+        min-factor = <700>;              /* 0.7倍: 低速を更に落ち着かせる */
+        max-factor = <2500>;             /* 2.5倍: 高速域を抑えてMagic Trackpadの速度感に */
+        speed-threshold = <2200>;        /* 加速開始を遅く */
+        speed-max = <9000>;              /* ピーク到達を遅らせて中速を粘らせる */
         acceleration-exponent = <3>;     /* 三次: 粘ってから急に伸びるカーブ */
     };
 };
