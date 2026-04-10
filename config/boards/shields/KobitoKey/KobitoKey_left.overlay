@@ -122,16 +122,16 @@
 };
 
 / {
-    /* 右トラックボール加速度設定（ポインター用 / Magic Trackpad 風） */
+    /* 右トラックボール加速度設定（ポインター用 / Magic Trackpad 風 Phase2） */
     pointer_accel_right: pointer_accel_right {
         compatible = "zmk,input-processor-acceleration";
         #input-processor-cells = <0>;
         input-type = <INPUT_EV_REL>;
         track-remainders;
-        min-factor = <900>;              /* 0.9倍: ほぼ等倍、低速でも素直に動く */
-        max-factor = <4000>;             /* 4.0倍: 高速で大胆に伸ばす */
-        speed-threshold = <1600>;        /* 中速ゾーンを粘らせる */
-        speed-max = <7500>;              /* 加速飽和を遠くに置く */
+        min-factor = <750>;              /* 0.75倍: CPI800と相殺して低速の張り付き感を演出 */
+        max-factor = <3200>;             /* 3.2倍: 高速の予測可能性を向上 */
+        speed-threshold = <2000>;        /* 低速ゾーン拡大、粘りを強化 */
+        speed-max = <8500>;              /* 加速ピークを遠くへ、中速の粘りを長く */
         acceleration-exponent = <3>;     /* 三次: 粘ってから急に伸びるカーブ */
     };
 };
