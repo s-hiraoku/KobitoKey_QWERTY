@@ -5,6 +5,30 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
+    macros {
+        launchpad_prev_page: launchpad_prev_page {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <250>;
+            tap-ms = <30>;
+            bindings
+                = <&kp F4>
+                , <&kp LEFT>
+                ;
+        };
+
+        launchpad_next_page: launchpad_next_page {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <250>;
+            tap-ms = <30>;
+            bindings
+                = <&kp F4>
+                , <&kp RIGHT>
+                ;
+        };
+    };
+
     combos {
         compatible = "zmk,combos";
 

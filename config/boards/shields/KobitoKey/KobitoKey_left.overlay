@@ -89,10 +89,10 @@
         tick = <220>;       /* 確実に1回だけ発動 */
         wait-ms = <800>;    /* Launchpadアニメ完了を待つ */
         tap-ms = <10>;
-        bindings = <&kp RIGHT>,             /* 右: Launchpad次ページ */
-                   <&kp LEFT>,            /* 左: Launchpad前ページ */
-                   <&kp F4>,             /* 上: Launchpad */
-                   <&kp F11>;            /* 下: デスクトップを表示 */
+        bindings = <&launchpad_next_page>, /* 右: Launchpadを開いて次ページ */
+                   <&launchpad_prev_page>, /* 左: Launchpadを開いて前ページ */
+                   <&kp F4>,               /* 上: Launchpad */
+                   <&kp F11>;              /* 下: デスクトップを表示 */
     };
 
     tab_keybind: tab_keybind {

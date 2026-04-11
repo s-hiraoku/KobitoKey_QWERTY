@@ -114,8 +114,8 @@ MO(6)を押していない時は通常のスクロール動作。キーマップ
 |---|---|---|
 | ↑ | Launchpad | F4 |
 | ↓ | デスクトップを表示 | F11 |
-| ← | Launchpad前ページ | LEFT |
-| → | Launchpad次ページ | RIGHT |
+| ← | Launchpadを開いて前ページ | Macro(F4 → LEFT) |
+| → | Launchpadを開いて次ページ | Macro(F4 → RIGHT) |
 
 MO(7)を押していない時は通常のスクロール動作。キーマップは全てtrans（透過）。
 
