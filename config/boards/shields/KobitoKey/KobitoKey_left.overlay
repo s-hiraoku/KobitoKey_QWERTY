@@ -69,7 +69,7 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <6>;    /* 初動の軽い左右フリックを拾いやすくする */
+        threshold = <4>;    /* 初動のさらに軽いフリックも拾いやすくする */
         tick = <160>;       /* 1ジェスチャでの再発火を抑えて1枚移動を安定化 */
         wait-ms = <650>;    /* Spacesアニメ中の二重入力を避ける */
         tap-ms = <10>;
@@ -85,9 +85,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <15>;   /* 最重：絶対に誤爆させない */
-        tick = <220>;       /* 確実に1回だけ発動 */
-        wait-ms = <800>;    /* Launchpadアニメ完了を待つ */
+        threshold = <4>;    /* Layer 5 と同じ感度に揃える */
+        tick = <160>;       /* Layer 5 と同じ単発寄り設定 */
+        wait-ms = <650>;    /* Layer 5 と同じ待機時間 */
         tap-ms = <10>;
         bindings = <&launchpad_next_page>, /* 右: Launchpadを開いて次ページ */
                    <&launchpad_prev_page>, /* 左: Launchpadを開いて前ページ */
@@ -99,9 +99,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <10>;   /* 連続切替があるので少し軽め */
-        tick = <140>;       /* 連発は可能だが過敏ではない */
-        wait-ms = <400>;    /* タブは連続切替需要あり、短めキープ */
+        threshold = <4>;    /* Layer 5 と同じ感度に揃える */
+        tick = <160>;       /* Layer 5 と同じ単発寄り設定 */
+        wait-ms = <650>;    /* Layer 5 と同じ待機時間 */
         tap-ms = <10>;
         bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
                    <&kp LC(LS(TAB))>,    /* 左: 前のタブ */
