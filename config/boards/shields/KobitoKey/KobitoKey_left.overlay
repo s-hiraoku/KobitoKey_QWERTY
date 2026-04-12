@@ -85,9 +85,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <4>;    /* Layer 5 と同じ感度に揃える */
-        tick = <160>;       /* Layer 5 と同じ単発寄り設定 */
-        wait-ms = <650>;    /* Layer 5 と同じ待機時間 */
+        threshold = <10>;   /* Layer 7 は誤爆を避けるため少し重く戻す */
+        tick = <220>;       /* 1回の操作で確実に単発化する */
+        wait-ms = <900>;    /* Launchpad/デスクトップの完了待ちを長めに取る */
         tap-ms = <10>;
         bindings = <&launchpad_next_page>, /* 右: Launchpadを開いて次ページ */
                    <&launchpad_prev_page>, /* 左: Launchpadを開いて前ページ */
