@@ -9,10 +9,11 @@
         launchpad_prev_page: launchpad_prev_page {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <250>;
-            tap-ms = <30>;
+            wait-ms = <500>;
+            tap-ms = <40>;
             bindings
                 = <&kp F4>
+                , <&macro_wait_time 700>
                 , <&kp LG(LEFT)>
                 ;
         };
@@ -20,10 +21,11 @@
         launchpad_next_page: launchpad_next_page {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            wait-ms = <250>;
-            tap-ms = <30>;
+            wait-ms = <500>;
+            tap-ms = <40>;
             bindings
                 = <&kp F4>
+                , <&macro_wait_time 700>
                 , <&kp LG(RIGHT)>
                 ;
         };
