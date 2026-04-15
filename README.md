@@ -114,8 +114,8 @@ MO(6)を押していない時は通常のスクロール動作。キーマップ
 |---|---|---|
 | ↑ | Launchpad | F4 |
 | ↓ | デスクトップを表示 | F11 |
-| ← | Launchpadを開いて前ページ | Macro(F4 → Cmd+Left) |
-| → | Launchpadを開いて次ページ | Macro(F4 → Cmd+Right) |
+| ← | Launchpad選択を左 / 左矢印 | Left |
+| → | Launchpad選択を右 / 右矢印 | Right |
 
 MO(7)を押していない時は通常のスクロール動作。キーマップは全てtrans（透過）。
 
@@ -146,12 +146,12 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 - 左トラックボール: スクロール + ジェスチャー（Layer 5/6/7時）
 - 右トラックボール: マウスカーソル + Layer 4自動発動
 - トラックボール操作感: **Magic Trackpad風**にチューニング（詳細は [docs/trackball-tuning.md](docs/trackball-tuning.md)、右は Phase 3 まで適用済み）
-  - 右（ポインター）: CPI=800, min 0.62倍 / max 2.2倍 / 三次カーブ / threshold=2500, speed-max=10000 — 滑らかさを上げつつ移動距離を少し短くし、低速の止めやすさと中速の粘りを強化
+  - 右（ポインター）: CPI=600, min 0.62倍 / max 2.2倍 / 三次カーブ / threshold=2500, speed-max=10000 — macOS側の軌跡スライダーが真ん中付近で丁度よくなるよう調整
   - 左（スクロール）: min 0.8倍 / max 2.5倍 / 三次カーブ — 粘ってから伸びる慣性風の質感
   - ジェスチャー（Layer 5/6/7）: 用途の重さに応じて threshold/tick/wait-ms を段階設定（誤爆防止）
     - Layer 5 Spaces: threshold=4, tick=160, wait-ms=650
     - Layer 6 タブ: threshold=4, tick=160, wait-ms=650
-    - Layer 7 デスクトップ: threshold=10, tick=220, wait-ms=900
+    - Layer 7 デスクトップ: threshold=4, tick=160, wait-ms=650
 
 ## LED色
 

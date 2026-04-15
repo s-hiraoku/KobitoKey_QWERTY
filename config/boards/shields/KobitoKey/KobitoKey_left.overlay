@@ -85,12 +85,12 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <10>;   /* Layer 7 は誤爆を避けるため少し重く戻す */
-        tick = <220>;       /* 1回の操作で確実に単発化する */
-        wait-ms = <900>;    /* Launchpad/デスクトップの完了待ちを長めに取る */
+        threshold = <4>;    /* Launchpad選択移動に合わせて軽く */
+        tick = <160>;       /* 連続選択を快適に */
+        wait-ms = <650>;    /* Layer 5 と同じ待機時間 */
         tap-ms = <10>;
-        bindings = <&launchpad_next_page>, /* 右: Launchpadを開いて次ページ */
-                   <&launchpad_prev_page>, /* 左: Launchpadを開いて前ページ */
+        bindings = <&kp RIGHT>,            /* 右: Launchpad選択を右へ */
+                   <&kp LEFT>,             /* 左: Launchpad選択を左へ */
                    <&kp F4>,               /* 上: Launchpad */
                    <&kp F11>;              /* 下: デスクトップを表示 */
     };
