@@ -146,7 +146,7 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 - 左トラックボール: スクロール + ジェスチャー（Layer 5/6/7時）
 - 右トラックボール: マウスカーソル + Layer 4自動発動
 - トラックボール操作感: **Magic Trackpad風**にチューニング（詳細は [docs/trackball-tuning.md](docs/trackball-tuning.md)、右は Phase 3 まで適用済み）
-  - 右（ポインター）: CPI=600, min 0.62倍 / max 2.2倍 / 三次カーブ / threshold=2500, speed-max=10000 — macOS側の軌跡スライダーが真ん中付近で丁度よくなるよう調整
+  - 右（ポインター）: CPI=700, min 0.62倍 / max 2.2倍 / 三次カーブ / threshold=2500, speed-max=10000 — macOS側の軌跡スライダーが真ん中付近で丁度よくなるよう調整
   - 左（スクロール）: min 0.8倍 / max 2.5倍 / 三次カーブ — 粘ってから伸びる慣性風の質感
   - ジェスチャー（Layer 5/6/7）: 用途の重さに応じて threshold/tick/wait-ms を段階設定（誤爆防止）
     - Layer 5 Spaces: threshold=4, tick=160, wait-ms=650
