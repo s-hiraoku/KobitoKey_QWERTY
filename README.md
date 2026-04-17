@@ -151,7 +151,7 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
   - ジェスチャー（Layer 5/6/7）: 用途の重さに応じて threshold/tick/wait-ms を段階設定（誤爆防止）
     - Layer 5 Spaces: threshold=4, tick=160, wait-ms=650
     - Layer 6 タブ: threshold=4, tick=160, wait-ms=650
-    - Layer 7 デスクトップ: threshold=4, tick=160, wait-ms=650
+    - Layer 7 デスクトップ: threshold=8, tick=200, wait-ms=800
 
 ## LED色
 

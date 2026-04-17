@@ -85,9 +85,9 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <4>;    /* Launchpad選択移動に合わせて軽く */
-        tick = <160>;       /* 連続選択を快適に */
-        wait-ms = <650>;    /* Layer 5 と同じ待機時間 */
+        threshold = <8>;    /* 誤動作防止のため鈍めに設定 */
+        tick = <200>;       /* 再発火を抑制して単発安定 */
+        wait-ms = <800>;    /* 1操作後のクールダウンを長めに */
         tap-ms = <10>;
         bindings = <&kp RIGHT>,            /* 右: Launchpad選択を右へ */
                    <&kp LEFT>,             /* 左: Launchpad選択を左へ */
