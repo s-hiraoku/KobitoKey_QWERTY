@@ -298,5 +298,5 @@ combos:
   k: ESC
 - p: [10, 11]
   k: TAB
-- p: [35, 36]
+- p: [35, 37]
   k: {t: BT, h: toggle}
