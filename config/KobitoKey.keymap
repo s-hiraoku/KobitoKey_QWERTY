@@ -34,7 +34,7 @@
 
         combo_bt {
             timeout-ms = <50>;
-            key-positions = <35 36>;
+            key-positions = <35 37>;
             bindings = <&to 8>;
         };
     };

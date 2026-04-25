@@ -6,7 +6,7 @@
 
 ![Keymap](images/keymap.svg)
 
-Combos: `Q+W` = ESC, `A+S` = TAB, `D+F` = 英数(LANG2), `J+K` = かな(LANG1), `BSPC+ENTER` = BT Layer
+Combos: `Q+W` = ESC, `A+S` = TAB, `D+F` = 英数(LANG2), `J+K` = かな(LANG1), `BSPC+SYMBOL` = BT Layer
 
 ### Layer 0: DEFAULT (QWERTY)
 
@@ -119,9 +119,9 @@ MO(6)を押していない時は通常のスクロール動作。キーマップ
 
 MO(7)を押していない時は通常のスクロール動作。キーマップは全てtrans（透過）。
 
-### Layer 8: BT (BSPC+ENTER combo)
+### Layer 8: BT (BSPC+SYMBOL combo)
 
-BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動。`to 0`で戻る。
+BSPC+SYMBOLの同時押しでBluetooth/ボリューム操作レイヤーに移動。`to 0`で戻る。
 
 ```
 ┌──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┐
@@ -140,7 +140,7 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 - プログラミング（Vim + Mac）向けに最適化
 - Layer 0-3: 指で直接入力（文字→機能→数字→記号）
 - Layer 4-7: トラックボール関連（マウス→ジェスチャー→タブ→デスクトップ）
-- Layer 8: BT/ボリューム専用（BSPC+ENTERコンボで発動）
+- Layer 8: BT/ボリューム専用（BSPC+SYMBOLコンボで発動）
 - BT操作はLayer 8に完全隔離して誤爆防止
 - コンボでESC/TAB/英数/かなをLayer 0から直接入力可能
 - 左トラックボール: スクロール + ジェスチャー（Layer 5/6/7時）
@@ -178,7 +178,7 @@ BSPC+ENTERの同時押しでBluetooth/ボリューム操作レイヤーに移動
 - **Layer 3(SYMBOL)でShift不要** — 全記号を1キーで直接入力可能
 - **Layer 2(NUMBER)が計算特化** — 数字+四則演算+括弧で電卓的な使い方に最適
 - **トラックボールジェスチャー3系統** — Spaces/MC、タブ操作、デスクトップ/Launchpadを使い分け（moNa 2方式）
-- **BT/ボリュームをLayer 8に完全隔離** — BSPC+ENTERコンボでのみ発動、誤爆の心配なし
+- **BT/ボリュームをLayer 8に完全隔離** — BSPC+SYMBOLコンボでのみ発動、誤爆の心配なし
 - **Layer 5/6/7にスタック防止策** — MO()自己参照で安定動作
 - **LED色でレイヤーが一目瞭然** — FUNCTION=青、NUMBER=緑、SYMBOL=黄、MOUSE=白、ジェスチャー系=ピンク、BT=赤
 
