@@ -165,7 +165,7 @@ MO(9)を押していない時は通常のスクロール動作。キーマップ
     - Layer 5 Spaces: threshold=4, tick=160, wait-ms=650
     - Layer 6 タブ: threshold=4, tick=160, wait-ms=650
     - Layer 7 デスクトップ: threshold=8, tick=200, wait-ms=800
-    - Layer 9 ズーム: threshold=6, tick=120, wait-ms=120（連続発火向け）
+    - Layer 9 ズーム: threshold=4, tick=160, wait-ms=650（Layer 5/6 と同じ）
 
 ## LED色
 
