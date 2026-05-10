@@ -134,6 +134,30 @@ Layer 6 は検証のため Layer 5 と同じ値に揃えている。Layer 7 は 
 Layer 7 の左右は単なる `LEFT/RIGHT` ではなく、`F4` で Launchpad を開いてから `Cmd+LEFT/RIGHT` を送るマクロにしている。
 これにより、Launchpad が未表示の状態からでも左右操作でページ送りまで一連で実行できる。
 
+### Layer 9（連続ズーム）は keybind を使わない
+
+Layer 9 はジェスチャー系と異なり `input-processor-keybind` を使わない。理由は離散的なキー発火（`Cmd+`/`Cmd-` の連打）では Magic Trackpad ピンチのような滑らかな連続ズームが得られないため。
+
+代わりに keymap 側で `zoom_hold` という macro behavior を定義している:
+
+```dts
+zoom_hold: zoom_hold {
+    compatible = "zmk,behavior-macro-one-param";
+    #binding-cells = <1>;
+    bindings
+        = <&macro_press &kp LCMD>
+        , <&macro_press &mo MACRO_PLACEHOLDER>
+        , <&macro_pause_for_release>
+        , <&macro_release &mo MACRO_PLACEHOLDER>
+        , <&macro_release &kp LCMD>
+        ;
+};
+```
+
+`&zoom_hold 9` を押している間 LCMD が保持され、Layer 9 でも左トラックボールはデフォルトのスクロール処理に流れる（overlay の Layer 9 分岐は空）。結果、OS には `Cmd+ホイール` として届き、macOS / Figma / ブラウザ / VSCode が連続ズームと解釈する。
+
+`pointer_accel`（min 0.8 / max 2.5 / 三次カーブ）がそのまま効くため、操作感は通常スクロールと同等の滑らかさで、刻んでズームできる。
+
 ## 参考資料
 
 - [zmk-pointing-acceleration README](https://github.com/oleksandrmaslov/zmk-pointing-acceleration)
