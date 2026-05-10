@@ -108,6 +108,21 @@
                    <&kp LG(T)>,          /* 上: 新規タブ */
                    <&kp LG(W)>;          /* 下: タブを閉じる */
     };
+
+    /* ズーム操作用 keybind プロセッサ（Figma / ブラウザ / VSCode 等） */
+    zoom_keybind: zoom_keybind {
+        compatible = "zmk,input-processor-keybind";
+        #input-processor-cells = <0>;
+        mode = <1>;         /* 4方向モード */
+        threshold = <6>;    /* 連続ズームしやすい感度 */
+        tick = <120>;       /* 上下フリックで段階的にズーム */
+        wait-ms = <120>;    /* 連続発火の間隔 */
+        tap-ms = <10>;
+        bindings = <&kp LS(N1)>,         /* 右: 画面に合わせる (Shift+1) */
+                   <&kp LS(N0)>,         /* 左: 100%表示 (Shift+0) */
+                   <&kp LG(EQUAL)>,      /* 上: ズームイン (Cmd +) */
+                   <&kp LG(MINUS)>;      /* 下: ズームアウト (Cmd -) */
+    };
 };
 
 /* 左トラックボール加速度設定（スクロール用 / Magic Trackpad 慣性スクロール風） */
@@ -187,6 +202,19 @@
     };
     desktop_suppress {
         layers = <7>;
+        input-processors = <&zip_xy_scaler 0 1>;
+    };
+
+    /* Layer 9: ズーム操作モード */
+    zoom_gesture {
+        layers = <9>;
+        input-processors =
+            <&sensor_rotation_left>,
+            <&zoom_keybind>;
+        process-next;
+    };
+    zoom_suppress {
+        layers = <9>;
         input-processors = <&zip_xy_scaler 0 1>;
     };
 };
