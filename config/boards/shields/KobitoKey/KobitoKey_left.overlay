@@ -109,21 +109,6 @@
                    <&kp LG(W)>;          /* 下: タブを閉じる */
     };
 
-    /* ズーム操作用 keybind プロセッサ（Figma / ブラウザ / VSCode 等） */
-    /* 連続発火させたい操作なので tab_keybind より短い tick / wait-ms */
-    zoom_keybind: zoom_keybind {
-        compatible = "zmk,input-processor-keybind";
-        #input-processor-cells = <0>;
-        mode = <1>;         /* 4方向モード */
-        threshold = <4>;    /* 軽く転がしただけでも拾う */
-        tick = <80>;        /* 1ジェスチャ内で複数段ズームを連射 */
-        wait-ms = <80>;     /* 短いクールダウンで滑らかに刻む */
-        tap-ms = <10>;
-        bindings = <&kp LS(N1)>,         /* 右: 画面に合わせる (Shift+1) */
-                   <&kp LS(N0)>,         /* 左: 100%表示 (Shift+0) */
-                   <&kp LG(EQUAL)>,      /* 上: ズームイン (Cmd +) */
-                   <&kp LG(MINUS)>;      /* 下: ズームアウト (Cmd -) */
-    };
 };
 
 /* 左トラックボール加速度設定（スクロール用 / Magic Trackpad 慣性スクロール風） */
@@ -206,18 +191,11 @@
         input-processors = <&zip_xy_scaler 0 1>;
     };
 
-    /* Layer 9: ズーム操作モード */
-    zoom_gesture {
-        layers = <9>;
-        input-processors =
-            <&sensor_rotation_left>,
-            <&zoom_keybind>;
-        process-next;
-    };
-    zoom_suppress {
-        layers = <9>;
-        input-processors = <&zip_xy_scaler 0 1>;
-    };
+    /* Layer 9: ズーム操作モード
+     * keymap側の zoom_hold が LCMD を保持するので、左トラックボールは
+     * 通常スクロール扱いで OS に到達 → macOS / Figma / ブラウザは
+     * Cmd+スクロール = 連続ズームと解釈する（Magic Trackpad ピンチ風）
+     * Layer 9 分岐は何もしない（デフォルトのスクロール処理に任せる） */
 };
 
 / {

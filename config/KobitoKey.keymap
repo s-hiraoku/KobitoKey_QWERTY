@@ -5,6 +5,24 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
+    behaviors {
+        /* 押している間: Layer N をアクティブ + LCMD を保持
+         * 離した時: Layer N を解除 + LCMD を解除
+         * 用途: Layer 9 で左トラックボール=スクロールを Cmd+スクロールに変換し、
+         *       macOS / Figma / ブラウザでピンチ風の連続ズームを実現 */
+        zoom_hold: zoom_hold {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings
+                = <&macro_press &kp LCMD>
+                , <&macro_press &mo MACRO_PLACEHOLDER>
+                , <&macro_pause_for_release>
+                , <&macro_release &mo MACRO_PLACEHOLDER>
+                , <&macro_release &kp LCMD>
+                ;
+        };
+    };
+
     combos {
         compatible = "zmk,combos";
 
@@ -85,7 +103,7 @@
             label = "MOUSE";
             bindings = <
 &to 0         &to 0         &to 0         &to 0   &to 0   &mo 5   &mkp MB1  &mkp MB3  &mkp MB2  &mo 6
-&to 0         &to 0         &to 0         &to 0   &to 0   &mo 7   &mkp MB4  &to 0     &mkp MB5  &mo 9
+&to 0         &to 0         &to 0         &to 0   &to 0   &mo 7   &mkp MB4  &to 0     &mkp MB5  &zoom_hold 9
 &to 0         &to 0         &to 0         &to 0   &to 0   &to 0   &to 0     &to 0     &to 0     &to 0
 &trans        &trans        &trans        &trans   &to 0  &trans  &trans    &trans    &to 0     &trans
             >;
@@ -135,7 +153,7 @@
             label = "ZOOM";
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &mo 9
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &zoom_hold 9
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
