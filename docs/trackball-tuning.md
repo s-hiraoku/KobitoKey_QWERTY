@@ -158,6 +158,46 @@ zoom_hold: zoom_hold {
 
 `pointer_accel`（min 0.8 / max 2.5 / 三次カーブ）がそのまま効くため、操作感は通常スクロールと同等の滑らかさで、刻んでズームできる。
 
+## オートマウスレイヤー（zip_temp_layer）チューニング
+
+トラックボール操作時に Layer 4 (MOUSE) を自動発動させる `zip_temp_layer` の安定化記録。
+
+### 症状
+
+1. **マウスレイヤーから戻らない**: Layer 4 中に `&mo 5/6/7` などレイヤー切替を押した状態でトラックボールに触れると、タイマーがリセットされ続けて Layer 4 が10秒間ロックされる
+2. **`-` を打つと `H` になる**: Layer 3 (SYMBOL) で `lt 3 RSHFT` 押下中、トラックボールに触れた直後に position 15 を押すと、`zip_temp_layer` が割り込んで Layer 4 へ遷移し、`MINUS` ではなく `&mo 5` → 透過で Layer 0 の `H` が出る
+
+### 修正値 (2026-05-14)
+
+```dts
+&tb_left_listener {
+    input-processors = <... &zip_temp_layer 4 2500>;  /* 10000 → 2500 */
+};
+
+&tb_right_listener {
+    input-processors = <... &zip_temp_layer 4 2500>;  /* 10000 → 2500 */
+};
+
+zip_temp_layer {
+    require-prior-idle-ms = <300>;  /* 150 → 300 */
+};
+
+&zip_temp_layer {
+    excluded-positions = <
+        5 6 7 8 9 15 16 18 19  /* 数字段右半分 */
+        30 32 33 34 36 37 39   /* 親指列。34/36/37 を追加 */
+    >;
+};
+```
+
+### 効果
+
+- **滞留時間 10000ms → 2500ms**: マウス層の自動復帰が4倍速くなり、入力詰まりが解消
+- **prior-idle 150ms → 300ms**: タイピング中のトラボ誤反応を抑制。`-`→`H` の暴発を防ぐ
+- **excluded-positions に 34/36/37 追加**: `LCTRL`, `lt 2 ENTER`, `lt 3 RSHFT` を押している間はマウス層へ遷移しない。Layer 3 中の `-` 入力が確定する
+
+副作用は限定的（クリック中にトラボから指を離してから2.5秒で Layer 0 へ戻るので、長時間のドラッグ操作中はトラボに軽く触れ続ける必要がある程度）。Layer 4 のキーマップ自体（`&trans` の扱い）は Cmd+クリック等の修飾用途を壊さないよう温存している。
+
 ## 参考資料
 
 - [zmk-pointing-acceleration README](https://github.com/oleksandrmaslov/zmk-pointing-acceleration)

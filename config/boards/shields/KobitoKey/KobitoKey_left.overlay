@@ -150,7 +150,7 @@
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_temp_layer 4 10000>;
+            <&zip_temp_layer 4 2500>;
 
     /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印） */
     gesture {
@@ -202,7 +202,7 @@
   /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
     compatible = "zmk,input-processor-temp-layer";
     #input-processor-cells = <2>;
-    require-prior-idle-ms = <150>; /* キー押下後、何msオートマウスレイヤに入らないようにするか、誤爆防止 */
+    require-prior-idle-ms = <300>; /* キー押下後、何msオートマウスレイヤに入らないようにするか、誤爆防止 */
   };
 };
 
@@ -212,7 +212,7 @@
     input-processors =
         <&sensor_rotation_right>,
         <&pointer_accel_right>,
-        <&zip_temp_layer 4 10000>; /* オートマウスレイヤーの指定とトラボ操作及びマウスボタン押下後に滞留する時間 */
+        <&zip_temp_layer 4 2500>; /* オートマウスレイヤーの指定とトラボ操作及びマウスボタン押下後に滞留する時間 */
 };
 
 &zip_temp_layer {
@@ -229,6 +229,9 @@
         30
         32
         33
+        34
+        36
+        37
         39
     >;
 };
