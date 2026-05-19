@@ -202,7 +202,7 @@
   /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
     compatible = "zmk,input-processor-temp-layer";
     #input-processor-cells = <2>;
-    require-prior-idle-ms = <300>; /* キー押下後、何msオートマウスレイヤに入らないようにするか、誤爆防止 */
+    require-prior-idle-ms = <500>; /* キー押下後、何msオートマウスレイヤに入らないようにするか、誤爆防止 */
   };
 };
 
@@ -224,6 +224,7 @@
         8
         9
         16
+        17
         18
         19
         30
