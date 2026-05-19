@@ -85,45 +85,45 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   MOUSE:
-  - - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - GESTURE
     - '&mkp MB1'
     - '&mkp MB3'
     - '&mkp MB2'
     - TAB
-  - - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - DESKTOP
-    - '&mkp MB4'
-    - {t: default, h: toggle}
-    - '&mkp MB5'
-    - ZOOM
-  - - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
-    - {t: default, h: toggle}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: default, h: toggle}
+    - {t: ▽, type: trans}
+    - DESKTOP
+    - '&mkp MB4'
+    - {t: ▽, type: trans}
+    - '&mkp MB5'
+    - ZOOM
+  - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: default, h: toggle}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   GESTURE:
   - - {t: ▽, type: trans}
