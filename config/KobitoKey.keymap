@@ -161,15 +161,15 @@
     };
 };
 
-/* lt (layer-tap) を balanced + 短めの tapping-term に変更。
- * デフォルト (tap-preferred / 200ms) では「キーを離すまで tap 解釈優先」
- * のため、高速タイプ時に lt 3 RSHFT 押下中の `-` が Layer 3 に入る前に
- * 確定して RSHFT+H = 大文字 H として化けることがあった。
- * balanced は「もう片方のキーを離す前に lt を離していれば tap、
- * それ以外は hold」なので、Shift 単独タップは維持しつつ Layer 入り
- * を体感速度で大幅に改善する。 */
+/* lt (layer-tap) を hold-preferred + 短めの tapping-term に変更。
+ * デフォルト (tap-preferred / 200ms) や balanced では押し方次第で
+ * lt 3 RSHFT + `-` が `H` に化ける症状が残った。hold-preferred は
+ * 別キーが押された瞬間に hold を確定するので、押し方を問わず Layer 入り
+ * が確定する。副作用として lt 単独タップ (Space/Enter/RSHFT) を別キーと
+ * 連続入力すると hold 誤判定されやすくなるため、tapping-term を 180ms
+ * と短めにし、quick-tap-ms=125 で連続タップ時の取りこぼしを救う。 */
 &lt {
-    flavor = "balanced";
+    flavor = "hold-preferred";
     tapping-term-ms = <180>;
     quick-tap-ms = <125>;
 };
