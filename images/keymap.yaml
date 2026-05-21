@@ -85,46 +85,46 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   MOUSE:
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+  - - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
     - GESTURE
     - '&mkp MB1'
     - '&mkp MB3'
     - '&mkp MB2'
     - TAB
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+  - - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
     - DESKTOP
     - '&mkp MB4'
-    - {t: ▽, type: trans}
+    - {t: default, h: toggle}
     - '&mkp MB5'
     - ZOOM
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+  - - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+  - - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
+    - {t: default, h: toggle}
   GESTURE:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
