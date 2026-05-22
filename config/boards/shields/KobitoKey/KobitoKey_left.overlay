@@ -65,17 +65,27 @@
 
 
     /* トラックボールジェスチャー用 keybind プロセッサ（Magic Trackpad 3本指スワイプ相当）
-     * 初動は軽く拾い (threshold 低め)、1 ストローク中の多重発火は tick 周期を
-     * 大きく伸ばすことで防ぐ。wait-ms は Spaces アニメ + ボール戻し動作の
-     * クールダウンを吸収するために維持する。 */
+     *
+     * zettaface/zmk-input-processor-keybind の実装挙動に基づく設計:
+     *   - threshold: 1 イベントごとの raw 値カットオフ (低=軽い動きも拾う)
+     *   - tick: 累積バケットのしきい値。tick 分溜まる毎に 1 発火
+     *   - track-remainders: プロパティを「書かない」= false。発火後の余り
+     *     累積を持ち越さないので、1 ストローク = 1 発火が成立しやすい
+     *   - max-pending-activations = 1: 待機キューを 1 個に制限し、wait-ms
+     *     中に複数発火分が溜まるのを防ぐ
+     *   - wait-ms: 発火後の次発火までブロック時間。短めで反応性優先
+     *
+     * 「1 スワイプ = 1 アクション、軽く触れて即反応」を狙う構成。 */
     gesture_keybind: gesture_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <3>;    /* 初動の小さなフリックでも 1 発で発火 */
-        tick = <350>;       /* 1 スワイプ内で再発火させないよう周期を大きく */
-        wait-ms = <700>;    /* Spaces アニメ完了 + 戻し動作のクールダウン */
-        tap-ms = <10>;
+        threshold = <3>;    /* raw ノイズだけカット、軽いフリックは拾う */
+        tick = <30>;        /* 軽いスワイプ (~30-60 counts) で 1 発火 */
+        tap-ms = <30>;
+        wait-ms = <250>;    /* 次の発火までブロック。反応性優先 */
+        max-pending-activations = <1>;  /* 1 ストローク = 1 発火を強制 */
+        /* track-remainders は意図的に省略 (false 相当) */
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
                    <&kp LC(LEFT)>,   /* 左: Spaces左へ */
                    <&kp LC(UP)>,     /* 上: Mission Control */
@@ -84,30 +94,39 @@
 
     /* ブラウザタブ操作用 keybind プロセッサ */
     /* デスクトップ操作用 keybind プロセッサ（Magic Trackpad 4本指ピンチ相当）
-     * 初動は軽く拾い、1 スワイプ中の多重発火は tick 周期で防ぐ。F4/F11 の
-     * チャタリング防止のため threshold は GESTURE よりやや高めに維持する。 */
+     * gesture_keybind と同方針。F4/F11 (Launchpad / デスクトップ表示) の
+     * 暴発を避けるため threshold をやや上げ、wait-ms を長くしてアニメ完了を
+     * 待つ。max-pending-activations=1 で 1 スワイプ 1 発火を保証する。 */
     desktop_keybind: desktop_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <5>;    /* 初動は軽く、F4/F11 暴発防止で GESTURE よりやや高め */
-        tick = <380>;       /* 1 スワイプ内で再発火させないよう周期を大きく */
-        wait-ms = <750>;    /* Launchpad / Mission Control の状態遷移を待つ */
-        tap-ms = <10>;
+        threshold = <4>;    /* F4/F11 暴発防止で gesture よりやや高め */
+        tick = <35>;        /* gesture より少し高めで Launchpad 多重起動回避 */
+        tap-ms = <30>;
+        wait-ms = <350>;    /* Launchpad / Mission Control の状態遷移を待つ */
+        max-pending-activations = <1>;  /* 1 ストローク = 1 発火 */
+        /* track-remainders は意図的に省略 (false 相当) */
         bindings = <&kp RIGHT>,            /* 右: Launchpad選択を右へ */
                    <&kp LEFT>,             /* 左: Launchpad選択を左へ */
                    <&kp F4>,               /* 上: Launchpad */
                    <&kp F11>;              /* 下: デスクトップを表示 */
     };
 
+    /* ブラウザタブ操作用 keybind プロセッサ。gesture_keybind と同方針。
+     * Cmd+T / Cmd+W (上下) はブラウザの状態を大きく変えるため、上下方向の
+     * 取り扱いは特に慎重に。threshold は gesture と同じ 3、tick は連打を
+     * 抑えるためやや高め、max-pending-activations=1 で 1 スワイプ 1 発火。 */
     tab_keybind: tab_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <4>;    /* Layer 5 と同じ感度に揃える */
-        tick = <160>;       /* Layer 5 と同じ単発寄り設定 */
-        wait-ms = <650>;    /* Layer 5 と同じ待機時間 */
-        tap-ms = <10>;
+        threshold = <3>;
+        tick = <30>;
+        tap-ms = <30>;
+        wait-ms = <250>;
+        max-pending-activations = <1>;
+        /* track-remainders は意図的に省略 (false 相当) */
         bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
                    <&kp LC(LS(TAB))>,    /* 左: 前のタブ */
                    <&kp LG(T)>,          /* 上: 新規タブ */
