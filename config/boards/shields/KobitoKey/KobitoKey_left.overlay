@@ -81,11 +81,11 @@
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
         threshold = <3>;    /* raw ノイズだけカット、軽いフリックは拾う */
-        tick = <30>;        /* 軽いスワイプ (~30-60 counts) で 1 発火 */
+        tick = <100>;       /* 1 発火に必要な累積量。スワイプ続行中の再発火を抑制 */
         tap-ms = <30>;
-        wait-ms = <250>;    /* 次の発火までブロック。反応性優先 */
-        max_pending_activations = <1>;  /* 1 ストローク = 1 発火を強制 */
-        /* track-remainders は意図的に省略 (false 相当) */
+        wait-ms = <600>;    /* 発火後の release 後にブロックする時間。連続スワイプ間の最低間隔 */
+        max_pending_activations = <1>;  /* max_delta = tick * 1 で蓄積を制限 */
+        /* track_remainders は意図的に省略 (false) */
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
                    <&kp LC(LEFT)>,   /* 左: Spaces左へ */
                    <&kp LC(UP)>,     /* 上: Mission Control */
@@ -102,11 +102,11 @@
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
         threshold = <4>;    /* F4/F11 暴発防止で gesture よりやや高め */
-        tick = <35>;        /* gesture より少し高めで Launchpad 多重起動回避 */
+        tick = <120>;       /* gesture より大きめ。Launchpad 多重起動を確実に防止 */
         tap-ms = <30>;
-        wait-ms = <350>;    /* Launchpad / Mission Control の状態遷移を待つ */
-        max_pending_activations = <1>;  /* 1 ストローク = 1 発火 */
-        /* track-remainders は意図的に省略 (false 相当) */
+        wait-ms = <700>;    /* Launchpad / Mission Control の状態遷移完了を待つ */
+        max_pending_activations = <1>;  /* max_delta = tick * 1 で蓄積を制限 */
+        /* track_remainders は意図的に省略 (false) */
         bindings = <&kp RIGHT>,            /* 右: Launchpad選択を右へ */
                    <&kp LEFT>,             /* 左: Launchpad選択を左へ */
                    <&kp F4>,               /* 上: Launchpad */
@@ -122,11 +122,11 @@
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
         threshold = <3>;
-        tick = <30>;
+        tick = <100>;
         tap-ms = <30>;
-        wait-ms = <250>;
+        wait-ms = <600>;
         max_pending_activations = <1>;
-        /* track-remainders は意図的に省略 (false 相当) */
+        /* track_remainders は意図的に省略 (false) */
         bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
                    <&kp LC(LS(TAB))>,    /* 左: 前のタブ */
                    <&kp LG(T)>,          /* 上: 新規タブ */
