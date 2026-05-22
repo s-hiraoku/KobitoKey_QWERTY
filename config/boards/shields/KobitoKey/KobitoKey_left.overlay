@@ -84,7 +84,7 @@
         tick = <30>;        /* 軽いスワイプ (~30-60 counts) で 1 発火 */
         tap-ms = <30>;
         wait-ms = <250>;    /* 次の発火までブロック。反応性優先 */
-        max-pending-activations = <1>;  /* 1 ストローク = 1 発火を強制 */
+        max_pending_activations = <1>;  /* 1 ストローク = 1 発火を強制 */
         /* track-remainders は意図的に省略 (false 相当) */
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
                    <&kp LC(LEFT)>,   /* 左: Spaces左へ */
@@ -105,7 +105,7 @@
         tick = <35>;        /* gesture より少し高めで Launchpad 多重起動回避 */
         tap-ms = <30>;
         wait-ms = <350>;    /* Launchpad / Mission Control の状態遷移を待つ */
-        max-pending-activations = <1>;  /* 1 ストローク = 1 発火 */
+        max_pending_activations = <1>;  /* 1 ストローク = 1 発火 */
         /* track-remainders は意図的に省略 (false 相当) */
         bindings = <&kp RIGHT>,            /* 右: Launchpad選択を右へ */
                    <&kp LEFT>,             /* 左: Launchpad選択を左へ */
@@ -125,7 +125,7 @@
         tick = <30>;
         tap-ms = <30>;
         wait-ms = <250>;
-        max-pending-activations = <1>;
+        max_pending_activations = <1>;
         /* track-remainders は意図的に省略 (false 相当) */
         bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
                    <&kp LC(LS(TAB))>,    /* 左: 前のタブ */
