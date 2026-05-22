@@ -85,46 +85,46 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   MOUSE:
-  - - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - GESTURE
     - '&mkp MB1'
     - '&mkp MB3'
     - '&mkp MB2'
     - TAB
-  - - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - DESKTOP
     - '&mkp MB4'
-    - '&to 0'
+    - {t: ▽, type: trans}
     - '&mkp MB5'
     - ZOOM
-  - - '&to 0'
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - '&to 0'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
     - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-  - - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
-    - '&to 0'
+    - {t: ▽, type: trans}
   GESTURE:
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
