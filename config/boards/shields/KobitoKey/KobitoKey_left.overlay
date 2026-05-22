@@ -155,7 +155,7 @@
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_temp_layer 4 2500>;
+            <&zip_temp_layer 4 1500>;
 
     /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印） */
     gesture {
@@ -217,7 +217,7 @@
     input-processors =
         <&sensor_rotation_right>,
         <&pointer_accel_right>,
-        <&zip_temp_layer 4 2500>; /* オートマウスレイヤーの指定とトラボ操作及びマウスボタン押下後に滞留する時間 */
+        <&zip_temp_layer 4 1500>; /* オートマウスレイヤー4と滞留時間(ms)。短いほどボール離脱後すぐ通常入力に戻る */
 };
 
 &zip_temp_layer {
