@@ -65,15 +65,15 @@
 
 
     /* トラックボールジェスチャー用 keybind プロセッサ（Magic Trackpad 3本指スワイプ相当）
-     * 「1 スワイプ = 1 アクション」感に寄せる。tick を長くして 1 ストローク中の
-     * 累積カウントが再度しきい値に届かないようにし、wait-ms で Spaces アニメ
-     * （約 0.4 秒）+ ユーザのボール戻し動作のクールダウンも吸収する。 */
+     * 初動は軽く拾い (threshold 低め)、1 ストローク中の多重発火は tick 周期を
+     * 大きく伸ばすことで防ぐ。wait-ms は Spaces アニメ + ボール戻し動作の
+     * クールダウンを吸収するために維持する。 */
     gesture_keybind: gesture_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <6>;    /* 軽い揺れの誤発火を抑えつつフリックは拾う */
-        tick = <240>;       /* 1 スワイプ内で再発火しないよう周期を伸ばす */
+        threshold = <3>;    /* 初動の小さなフリックでも 1 発で発火 */
+        tick = <350>;       /* 1 スワイプ内で再発火させないよう周期を大きく */
         wait-ms = <700>;    /* Spaces アニメ完了 + 戻し動作のクールダウン */
         tap-ms = <10>;
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
@@ -84,14 +84,14 @@
 
     /* ブラウザタブ操作用 keybind プロセッサ */
     /* デスクトップ操作用 keybind プロセッサ（Magic Trackpad 4本指ピンチ相当）
-     * 「1 スワイプ = 1 アクション」感に寄せる。F4/F11 (Launchpad / デスクトップ)
-     * のチャタリングを避けるため threshold は鈍め、tick / wait-ms を長くする。 */
+     * 初動は軽く拾い、1 スワイプ中の多重発火は tick 周期で防ぐ。F4/F11 の
+     * チャタリング防止のため threshold は GESTURE よりやや高めに維持する。 */
     desktop_keybind: desktop_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <8>;    /* 誤動作防止のため鈍めに設定 */
-        tick = <250>;       /* 1 スワイプ内で再発火しないよう周期を伸ばす */
+        threshold = <5>;    /* 初動は軽く、F4/F11 暴発防止で GESTURE よりやや高め */
+        tick = <380>;       /* 1 スワイプ内で再発火させないよう周期を大きく */
         wait-ms = <750>;    /* Launchpad / Mission Control の状態遷移を待つ */
         tap-ms = <10>;
         bindings = <&kp RIGHT>,            /* 右: Launchpad選択を右へ */
