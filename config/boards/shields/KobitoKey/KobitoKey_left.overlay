@@ -65,15 +65,16 @@
 
 
     /* トラックボールジェスチャー用 keybind プロセッサ（Magic Trackpad 3本指スワイプ相当）
-     * スワイプに同期して Spaces が連鎖して進む感覚にするため、tick/wait-ms を
-     * macOS の Spaces 切替アニメ（約 0.4 秒）に寄せて短縮。 */
+     * 「1 スワイプ = 1 アクション」感に寄せる。tick を長くして 1 ストローク中の
+     * 累積カウントが再度しきい値に届かないようにし、wait-ms で Spaces アニメ
+     * （約 0.4 秒）+ ユーザのボール戻し動作のクールダウンも吸収する。 */
     gesture_keybind: gesture_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <4>;    /* 初動のさらに軽いフリックも拾いやすくする */
-        tick = <120>;       /* スワイプ量に応じた連打頻度を上げる */
-        wait-ms = <450>;    /* Spacesアニメと同期して連鎖発火 */
+        threshold = <6>;    /* 軽い揺れの誤発火を抑えつつフリックは拾う */
+        tick = <240>;       /* 1 スワイプ内で再発火しないよう周期を伸ばす */
+        wait-ms = <700>;    /* Spaces アニメ完了 + 戻し動作のクールダウン */
         tap-ms = <10>;
         bindings = <&kp LC(RIGHT)>,  /* 右: Spaces右へ */
                    <&kp LC(LEFT)>,   /* 左: Spaces左へ */
@@ -83,15 +84,15 @@
 
     /* ブラウザタブ操作用 keybind プロセッサ */
     /* デスクトップ操作用 keybind プロセッサ（Magic Trackpad 4本指ピンチ相当）
-     * Launchpad 上の選択移動をスワイプに同期させて連鎖させるため、tick/wait-ms
-     * を短縮。F4/F11 のチャタリング防止のため threshold は鈍めの 8 を維持。 */
+     * 「1 スワイプ = 1 アクション」感に寄せる。F4/F11 (Launchpad / デスクトップ)
+     * のチャタリングを避けるため threshold は鈍め、tick / wait-ms を長くする。 */
     desktop_keybind: desktop_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
         threshold = <8>;    /* 誤動作防止のため鈍めに設定 */
-        tick = <110>;       /* スワイプ量に応じた連打頻度を上げる */
-        wait-ms = <350>;    /* Launchpad 連続スクロールに同期 */
+        tick = <250>;       /* 1 スワイプ内で再発火しないよう周期を伸ばす */
+        wait-ms = <750>;    /* Launchpad / Mission Control の状態遷移を待つ */
         tap-ms = <10>;
         bindings = <&kp RIGHT>,            /* 右: Launchpad選択を右へ */
                    <&kp LEFT>,             /* 左: Launchpad選択を左へ */
