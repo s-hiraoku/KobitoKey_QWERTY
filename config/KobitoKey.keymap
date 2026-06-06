@@ -38,11 +38,6 @@
             bindings = <&kp LANG1>;
         };
 
-        combo_esc {
-            timeout-ms = <50>;
-            key-positions = <0 1>;
-            bindings = <&kp ESC>;
-        };
 
         combo_tab {
             timeout-ms = <50>;
@@ -55,6 +50,12 @@
             key-positions = <35 37>;
             bindings = <&to 8>;
         };
+
+        combo_custom_5 {
+    timeout-ms = <50>;
+    key-positions = <2 3>;
+    bindings = <&kp ESC>;
+};
     };
 
     keymap {
