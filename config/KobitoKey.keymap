@@ -53,7 +53,7 @@
 
         combo_custom_5 {
     timeout-ms = <50>;
-    key-positions = <4 5>;
+    key-positions = <2 3>;
     bindings = <&kp ESC>;
 };
     };
