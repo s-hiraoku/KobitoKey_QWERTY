@@ -74,6 +74,10 @@
      *   - max-pending-activations = 1: 待機キューを 1 個に制限し、wait-ms
      *     中に複数発火分が溜まるのを防ぐ
      *   - wait-ms: 発火後の次発火までブロック時間。短めで反応性優先
+     *   - tap-ms: キー押下時間 = 発火後の再発火チェックまでの窓。発火は
+     *     スワイプ途中で起きるため、この窓内に tick 分が再蓄積すると
+     *     2 連発になる。窓を 15ms に縮め、tick も 130 に上げて
+     *     「勢いのあるスワイプで 2 回切り替わる」のを抑止
      *
      * 「1 スワイプ = 1 アクション、軽く触れて即反応」を狙う構成。 */
     gesture_keybind: gesture_keybind {
@@ -81,8 +85,10 @@
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
         threshold = <3>;    /* raw ノイズだけカット、軽いフリックは拾う */
-        tick = <100>;       /* 1 発火に必要な累積量。スワイプ続行中の再発火を抑制 */
-        tap-ms = <30>;
+        tick = <130>;       /* 1 発火に必要な累積量。100 だと強いスワイプの
+                             * 残りで tap-ms 窓内に再蓄積し 2 連発したため増量 */
+        tap-ms = <15>;      /* 再発火チェック窓を半減。キーが取りこぼされる
+                             * ようなら 30 に戻す */
         wait-ms = <600>;    /* 発火後の release 後にブロックする時間。連続スワイプ間の最低間隔 */
         max_pending_activations = <1>;  /* max_delta = tick * 1 で蓄積を制限 */
         /* track_remainders は意図的に省略 (false) */
@@ -176,11 +182,18 @@
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_temp_layer 4 1500>;
 
-    /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印） */
+    /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印）
+     * keybind の 4 方向判定はパケット単位の |dx| vs |dy| 勝者総取りで
+     * 角度デッドゾーンがなく、横スワイプ中の手ブレ 1 パケットでも
+     * 移動量全体が縦バケットに入って Ctrl+Up/Down が誤発火する。
+     * y を 1/2 に減衰させることで、縦判定には dy > 2*dx (約63°以上) の
+     * 明確な縦方向の動きを要求し、横スワイプの誤判定を抑える。
+     * 副作用: 縦ジェスチャー (Mission Control 等) は約 2 倍の動きが必要 */
     gesture {
         layers = <5>;
         input-processors =
             <&sensor_rotation_left>,
+            <&zip_y_scaler 1 2>,
             <&gesture_keybind>;
         process-next;
     };
