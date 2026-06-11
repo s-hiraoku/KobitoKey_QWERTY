@@ -100,15 +100,16 @@
 
     /* ブラウザタブ操作用 keybind プロセッサ */
     /* デスクトップ操作用 keybind プロセッサ（Magic Trackpad 4本指ピンチ相当）
-     * gesture_keybind と同方針。F4/F11 (Launchpad / デスクトップ表示) の
-     * 暴発を避けるため threshold をやや上げ、wait-ms を長くしてアニメ完了を
-     * 待つ。max-pending-activations=1 で 1 スワイプ 1 発火を保証する。 */
+     * F4/F11 (Launchpad / デスクトップ表示) は重い操作だが、tick を重く
+     * しすぎると初回スワイプが累積不足で取りこぼされる。threshold は
+     * gesture と同じ軽さ、tick は tab より低めにして 1 発目の反応を優先し、
+     * wait-ms と max-pending-activations=1 で多重発火を抑える。 */
     desktop_keybind: desktop_keybind {
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         mode = <1>;         /* 4方向モード */
-        threshold = <4>;    /* F4/F11 暴発防止で gesture よりやや高め */
-        tick = <120>;       /* gesture より大きめ。Launchpad 多重起動を確実に防止 */
+        threshold = <3>;    /* 初動の軽いフリックも拾う */
+        tick = <70>;        /* 初回スワイプで発火しやすい累積量 */
         tap-ms = <30>;
         wait-ms = <700>;    /* Launchpad / Mission Control の状態遷移完了を待つ */
         max_pending_activations = <1>;  /* max_delta = tick * 1 で蓄積を制限 */
