@@ -40,7 +40,7 @@
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         cpi = <200>; /* センサー感度 */
-
+        force-awake; /* ACTIVE中はセンサーを起こしたままにして初回操作の取りこぼしを抑える */
 
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
