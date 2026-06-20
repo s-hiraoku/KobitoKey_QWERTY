@@ -198,7 +198,7 @@ zip_temp_layer {
 
 - **滞留時間 10000ms → 2500ms**: マウス層の自動復帰が4倍速くなり、入力詰まりが解消
 - **prior-idle 150ms → 300ms**: タイピング中のトラボ誤反応を抑制。`-`→`H` の暴発を防ぐ
-- **excluded-positions に 34/36/37 追加**: `LCTRL`, `lt 2 ENTER`, `lt 3 RSHFT` を押している間はマウス層へ遷移しない。Layer 3 中の `-` 入力が確定する
+- **excluded-positions に 34/36/37 追加**: 当時は `LCTRL`, `lt 2 ENTER`, `lt 3 RSHFT` 押下時の安定化として追加したが、後に 36/37 は Layer 4 から低番レイヤーへ移動する際の阻害要因だと分かった（2026-06-20 修正）
 
 副作用は限定的（クリック中にトラボから指を離してから2.5秒で Layer 0 へ戻るので、長時間のドラッグ操作中はトラボに軽く触れ続ける必要がある程度）。Layer 4 のキーマップ自体（`&trans` の扱い）は Cmd+クリック等の修飾用途を壊さないよう温存している。
 
@@ -228,8 +228,27 @@ zip_temp_layer {
 
 **副作用**: マウス操作中に左半分の文字キーを押すと、その文字が入力される（従来は Layer 0 へ戻るだけだった）。マウス操作中に文字入力するケースは稀なので実害なし。
 
+### 追加修正 (2026-06-20) — Layer 4 から Layer 1/2/3 へ入れない対策
+
+`excluded-positions` は「キー押下時にオートマウス Layer 4 を解除しない位置」のリストなので、Layer 1/2/3 の lt 親指キー（position 33/36/37）を含めると、Layer 4 が残ったまま低番レイヤーを hold する形になる。ZMK は高番の active layer を優先するため、Layer 4 の `&trans` やマウス系キーにマスクされ、FUNCTION/NUMBER/SYMBOL へ移動したように見えないことがあった。
+
+```dts
+&zip_temp_layer {
+    excluded-positions = <
+        5 6 7 8 9 15 16 17 18 19
+        30 32 34 39
+    >;
+};
+```
+
+**効果**:
+- Layer 4 中に `lt 1 SPACE` / `lt 2 ENTER` / `lt 3 RSHFT` を押すと、先に Layer 4 が解除され、Layer 1/2/3 の hold が最上位になる
+- Layer 4 上の `&mo 5/6/7`、マウスボタン、`zoom_hold 9`、明示的な `to0` は引き続き Layer 4 を保ったまま動く
+- Layer 3 の `-` 入力対策は `require-prior-idle-ms = <500>` が担う。`excluded-positions` は Layer 4 がすでに active な時の解除制御であり、Layer 4 への新規突入抑制ではない
+
 ## 参考資料
 
 - [zmk-pointing-acceleration README](https://github.com/oleksandrmaslov/zmk-pointing-acceleration)
 - [badjeff/zmk-pmw3610-driver](https://github.com/badjeff/zmk-pmw3610-driver)
+- [ZMK Temporary Layer Input Processor](https://zmk.dev/docs/keymaps/input-processors/temp-layer)
 - [PMW3610 データシート](https://www.epsglobal.com/Media-Library/EPSGlobal/Products/files/pixart/PMW3610DM-SUDU.pdf)
