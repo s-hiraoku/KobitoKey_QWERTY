@@ -246,6 +246,30 @@ zip_temp_layer {
 - Layer 4 上の `&mo 5/6/7`、マウスボタン、`zoom_hold 9`、明示的な `to0` は引き続き Layer 4 を保ったまま動く
 - Layer 3 の `-` 入力対策は `require-prior-idle-ms = <500>` が担う。`excluded-positions` は Layer 4 がすでに active な時の解除制御であり、Layer 4 への新規突入抑制ではない
 
+### 追加修正 (2026-06-20) — 左 force-awake と Layer 4 滞留の分離
+
+Layer 5/6/7 の初回スワイプ改善として左 PMW3610 に `force-awake` を入れた後、左トラックボールの微小な motion が拾われやすくなり、左 default 経路の `&zip_temp_layer 4 1500` が Layer 4 の復帰タイマーを延長し続けることがあった。
+
+ジェスチャー操作感は維持したいので、`force-awake` と Layer 5/6/7 の input processor はそのままにし、左 default 経路から auto mouse 発動だけを外した。右トラックボール側の `&zip_temp_layer 4 1500` は残すため、ポインター操作で Mouse Layer に入る運用は維持される。
+
+```dts
+&tb_left_listener {
+    input-processors =
+            <&sensor_rotation_left>,
+            <&pointer_accel>,
+            <&zip_x_scaler 0 1>,
+            <&zip_y_scaler 1 15>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
+};
+```
+
+**効果**:
+- 左センサーの微小入力が Layer 4 のタイマーをリセットし続ける経路をなくす
+- Layer 5/6/7 のジェスチャーと Layer 9 の Cmd+scroll は従来通り左トラックボールで動く
+- Mouse Layer 4 の自動発動は右ポインター操作に集約する
+
 ## 参考資料
 
 - [zmk-pointing-acceleration README](https://github.com/oleksandrmaslov/zmk-pointing-acceleration)

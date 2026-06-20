@@ -172,7 +172,8 @@
     status = "okay";
     device = <&tb_left>;
 
-    /* デフォルト: スクロール動作 + マウスレイヤー自動発動 */
+    /* デフォルト: スクロール動作。force-awake 中の微小入力で Layer 4 の
+     * 復帰タイマーが延長され続けるため、左手側では自動発動しない。 */
     input-processors =
             <&sensor_rotation_left>,
             <&pointer_accel>,
@@ -180,8 +181,7 @@
             <&zip_y_scaler 1 15>,
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_temp_layer 4 1500>;
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
 
     /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印）
      * keybind の 4 方向判定はパケット単位の |dx| vs |dy| 勝者総取りで
