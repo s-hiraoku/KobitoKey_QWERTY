@@ -21,19 +21,50 @@
                 , <&macro_release &kp LCMD>
                 ;
         };
+
+        /* ドラッグロック: 1押し目で MB1 を押しっぱなしにして Layer 10 へ、
+         * Layer 10 の同じキー (drag_off) で解除。長距離ドラッグ中に
+         * ボタンを押さえ続ける必要をなくす。
+         * 注意: ドラッグ中に &to 0 を押すと MB1 が張り付いたままになる。
+         * その場合はドラッグキーを 2 回押せば復旧する */
+        drag_on: drag_on {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &mkp MB1>, <&macro_tap &tog 10>;
+        };
+
+        drag_off: drag_off {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_release &mkp MB1>, <&macro_tap &tog 10>;
+        };
+
+        /* ドラッグロック用ホールドタップ: タップ = 通常の文字 (Layer 4 誤発動時に
+         * k が drag_on に化けるのを防ぐ)、200ms 長押しでドラッグロック開始。
+         * 使い方: &dl 0 K (hold 側の drag_on はパラメータ無しなのでダミーの 0) */
+        dl: drag_lock_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&drag_on>, <&kp>;
+        };
     };
 
     combos {
         compatible = "zmk,combos";
 
+        /* 英数/かな: 2 本指の押下が 50ms を超えてズレると発動せず df/jk が
+         * 出るため 80ms に延長。D+F / J+K のロールはローマ字にも英語にも
+         * ほぼ出ないので誤発動リスクは低い。まだ取りこぼすなら 100 へ */
         combo_eisu {
-            timeout-ms = <50>;
+            timeout-ms = <80>;
             key-positions = <12 13>;
             bindings = <&kp LANG2>;
         };
 
         combo_kana {
-            timeout-ms = <50>;
+            timeout-ms = <80>;
             key-positions = <16 17>;
             bindings = <&kp LANG1>;
         };
@@ -99,13 +130,16 @@
             >;
         };
 
+        /* pos 17 (K) 長押し: ドラッグロック開始 (タップは k のまま)
+         * pos 23 (V) 長押し: 押している間 右トラボ精密モード (タップは v)
+         * pos 29 (') 長押し: 押している間 左トラボ横スクロール (タップは ') */
         layer4 {
             label = "MOUSE";
             bindings = <
-&trans        &trans        &trans        &trans  &trans  &mo 5   &mkp MB1  &mkp MB3  &mkp MB2  &mo 6
-&trans        &trans        &trans        &trans  &trans  &mo 7   &mkp MB4  &trans    &mkp MB5  &zoom_hold 9
-&trans        &trans        &trans        &trans  &trans  &trans  &trans    &trans    &trans    &trans
-&trans        &trans        &trans        &trans  &to 0   &trans  &trans    &trans    &to 0     &trans
+&trans        &trans        &trans        &trans      &trans  &mo 5   &mkp MB1  &mkp MB3  &mkp MB2  &mo 6
+&trans        &trans        &trans        &trans      &trans  &mo 7   &mkp MB4  &dl 0 K   &mkp MB5  &zoom_hold 9
+&trans        &trans        &trans        &lt 11 V    &trans  &trans  &trans    &trans    &trans    &lt 12 APOS
+&trans        &trans        &trans        &trans      &to 0   &trans  &trans    &trans    &to 0     &trans
             >;
         };
 
@@ -154,6 +188,39 @@
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &zoom_hold 9
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        /* MB1 押しっぱなし中。pos 17 の drag_off で解除 */
+        layer10 {
+            label = "DRAG";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &drag_off  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans  &trans
+            >;
+        };
+
+        /* 右トラボ精密モード。実体は overlay の input-processor 分岐 */
+        layer11 {
+            label = "PRECISION";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        /* 左トラボ横スクロールモード。実体は overlay の input-processor 分岐 */
+        layer12 {
+            label = "HSCROLL";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;

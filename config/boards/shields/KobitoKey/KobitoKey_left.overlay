@@ -252,6 +252,20 @@
      * 通常スクロール扱いで OS に到達 → macOS / Figma / ブラウザは
      * Cmd+スクロール = 連続ズームと解釈する（Magic Trackpad ピンチ風）
      * Layer 9 分岐は何もしない（デフォルトのスクロール処理に任せる） */
+
+    /* Layer 12: 横スクロールモード（&lt 12 APOS 長押し中）
+     * デフォルトの縦専用 (x を 0 倍) と入れ替えで、y を殺して x だけ
+     * スクロールに流す。倍率は縦の 15 より控えめに 8 から開始 */
+    hscroll {
+        layers = <12>;
+        input-processors =
+            <&sensor_rotation_left>,
+            <&pointer_accel>,
+            <&zip_y_scaler 0 1>,
+            <&zip_x_scaler 1 8>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
+    };
 };
 
 / {
@@ -270,12 +284,25 @@
         <&pointer_accel_right>,
         <&zip_temp_layer 4 3500>; /* オートマウスレイヤー4と滞留時間(ms)。1500 だとボールを止めてから
                                    * マウスボタン等を押す前に抜けてしまうことがあったため +2秒 */
+
+    /* Layer 11: 精密モード（&lt 11 V 長押し中）。移動量を 1/2 にしてから
+     * accel に渡すので低速域の加速も弱まり、小さい UI を狙いやすくなる */
+    precision {
+        layers = <11>;
+        input-processors =
+            <&sensor_rotation_right>,
+            <&zip_xy_scaler 1 2>,
+            <&pointer_accel_right>,
+            <&zip_temp_layer 4 3500>;
+    };
 };
 
 &zip_temp_layer {
     /* Layer 1/2/3 の lt 親指キー (33/36/37) は除外しない。
      * Layer 4 が先に解除されることで、低番レイヤーへの hold が
      * オートマウスレイヤーにマスクされずに効く。 */
+    /* 23 (V=精密モード) / 29 ('=横スクロール) は Layer 4 の機能キーなので
+     * 押しても Layer 4 を解除しない */
     excluded-positions = <
         5
         6
@@ -287,6 +314,8 @@
         17
         18
         19
+        23
+        29
         30
         32
         34
