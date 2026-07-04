@@ -12,6 +12,8 @@ manifest:
       url-base: https://github.com/zettaface
     - name: oleksandrmaslov
       url-base: https://github.com/oleksandrmaslov
+    - name: s-hiraoku
+      url-base: https://github.com/s-hiraoku
 
   projects:
     # ZMK 本体。公式の app/west.yml を取り込む
@@ -38,9 +40,11 @@ manifest:
       revision: v0.3
 
     # Trackball keybind processor
+    # フォーク: wait-ms の k_sleep がシステムワークキューを 600-700ms
+    # ブロックする問題を deferred work 化で修正したブランチを使用
     - name: zmk-input-processor-keybind
-      remote: zettaface
-      revision: main
+      remote: s-hiraoku
+      revision: non-blocking-wait
 
     # Trackball acceleration
     - name: zmk-pointing-acceleration

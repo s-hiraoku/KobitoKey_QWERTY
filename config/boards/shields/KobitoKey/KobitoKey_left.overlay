@@ -120,8 +120,10 @@
         mode = <1>;         /* 4方向モード */
         threshold = <3>;    /* 初動の軽いフリックも拾う */
         tick = <70>;        /* 初回スワイプで発火しやすい累積量 */
-        tap-ms = <30>;
+        tap-ms = <10>;      /* 再発火チェック窓 < レポート間隔 12ms (gesture と同方針) */
         wait-ms = <700>;    /* Launchpad / Mission Control の状態遷移完了を待つ */
+        max_threshold = <50>;  /* 50 + (50*3>>3) = 68 < tick=70 で窓内
+                                * 1 パケット再発火を封じる */
         max_pending_activations = <1>;  /* max_delta = tick * 1 で蓄積を制限 */
         /* track_remainders は意図的に省略 (false) */
         bindings = <&kp RIGHT>,            /* 右: Launchpad選択を右へ */
@@ -140,8 +142,10 @@
         mode = <1>;         /* 4方向モード */
         threshold = <3>;
         tick = <100>;
-        tap-ms = <30>;
+        tap-ms = <10>;      /* 再発火チェック窓 < レポート間隔 12ms。Cmd+W の
+                             * 2 連発 = タブ 2 枚閉じは実害が大きいので必須 */
         wait-ms = <600>;
+        max_threshold = <70>;  /* 70 + (70*3>>3) = 96 < tick=100 (gesture と同値) */
         max_pending_activations = <1>;
         /* track_remainders は意図的に省略 (false) */
         bindings = <&kp LC(TAB)>,        /* 右: 次のタブ */
@@ -213,11 +217,15 @@
         input-processors = <&zip_xy_scaler 0 1>;
     };
 
-    /* Layer 6: タブ操作モード */
+    /* Layer 6: タブ操作モード
+     * gesture と同じく y を 1/2 に減衰。横スワイプ(タブ送り)中の手ブレで
+     * 縦バケットに蓄積して Cmd+T / Cmd+W が誤発火するのを防ぐ。
+     * 副作用: 新規タブ / タブ閉じは約 2 倍の縦の動きが必要 */
     tab_gesture {
         layers = <6>;
         input-processors =
             <&sensor_rotation_left>,
+            <&zip_y_scaler 1 2>,
             <&tab_keybind>;
         process-next;
     };
