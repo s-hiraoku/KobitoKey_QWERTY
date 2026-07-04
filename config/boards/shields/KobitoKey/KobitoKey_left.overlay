@@ -40,7 +40,9 @@
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         cpi = <200>; /* センサー感度 */
-        force-awake; /* ACTIVE中はセンサーを起こしたままにして初回操作の取りこぼしを抑える */
+        /* force-awake は撤去 (2026-07-04)。run モード常駐は静止中も微小ノイズ
+         * (±1 カウント) を出し、y×15 のスクロールで画面がブレていた。
+         * 初回スワイプの取りこぼし対策は .conf の REST サンプリング短縮で代替 */
 
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
