@@ -6,7 +6,7 @@ draw_config:
   key_ry: 6.0
   dark_mode: false
   draw_key_sides: false
-  footer_text: 'KobitoKey QWERTY'
+  footer_text: "KobitoKey QWERTY · Left ball: 2D scroll · ' hold: horizontal lock · ZOOM hold: zoom"
   svg_extra_style: |
     svg {
       background-color: #f8f9fc;

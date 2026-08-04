@@ -41,7 +41,7 @@
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         cpi = <200>; /* センサー感度 */
         /* force-awake は撤去 (2026-07-04)。run モード常駐は静止中も微小ノイズ
-         * (±1 カウント) を出し、y×15 のスクロールで画面がブレていた。
+         * (±1 カウント) を出し、スクロール経路で画面がブレていた。
          * 初回スワイプの取りこぼし対策は .conf の REST サンプリング短縮で代替 */
 
         evt-type = <INPUT_EV_REL>;
@@ -163,7 +163,7 @@
     input-type = <INPUT_EV_REL>;
     track-remainders;
     min-factor = <800>;              /* 0.8倍: 読書時の1行スクロールが軽快 */
-    max-factor = <2500>;             /* 2.5倍: y_scaler×15と掛け算で実効37.5倍 */
+    max-factor = <2500>;             /* 2.5倍: scaler で間引く前の最大加速率 */
     speed-threshold = <1400>;        /* 立ち上がりをやや早く */
     speed-max = <6000>;
     acceleration-exponent = <3>;     /* 三次: 粘ってから急に伸びる=慣性風 */
@@ -188,12 +188,13 @@
     status = "okay";
     device = <&tb_left>;
 
-    /* デフォルト: スクロール動作。force-awake 中の微小入力で Layer 4 の
-     * 復帰タイマーが延長され続けるため、左手側では自動発動しない。 */
+    /* デフォルト: Magic Trackpad の2本指移動に近い2次元スクロール。
+     * 横は 1/12、縦は 1/15 に間引いてから X/Y を水平/垂直ホイールへ写像する。
+     * 左手側からはオートマウス Layer 4 を発動しない。 */
     input-processors =
             <&sensor_rotation_left>,
             <&pointer_accel>,
-            <&zip_x_scaler 0 1>,
+            <&zip_x_scaler 1 12>,
             <&zip_y_scaler 1 15>,
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
@@ -255,9 +256,9 @@
      * Cmd+スクロール = 連続ズームと解釈する（Magic Trackpad ピンチ風）
      * Layer 9 分岐は何もしない（デフォルトのスクロール処理に任せる） */
 
-    /* Layer 12: 横スクロールモード（&lt 12 APOS 長押し中）
-     * デフォルトの縦専用 (x を 0 倍) と入れ替えで、y を殺して x だけ
-     * スクロールに流す。倍率は縦の 15 より控えめに 8 から開始 */
+    /* Layer 12: 横軸ロック（&lt 12 APOS 長押し中）。
+     * 通常の2次元スクロールと異なり y を殺し、x だけを 1/8 に間引いて
+     * 水平ホイールへ流す。スプレッドシートなどを横だけ動かす用途。 */
     hscroll {
         layers = <12>;
         input-processors =

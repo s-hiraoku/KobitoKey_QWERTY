@@ -102,19 +102,19 @@ layers:
     - {t: ▽, type: trans}
     - DESKTOP
     - '&mkp MB4'
-    - {t: ▽, type: trans}
+    - {t: K, h: DRAG}
     - '&mkp MB5'
     - ZOOM
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+    - {t: V, h: PRECISION}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+    - {t: '''', h: HSCROLL}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -330,14 +330,34 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+  DRAG:
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, DRAG OFF, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, SAFE EXIT, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, SAFE EXIT, {t: ▽, type: trans}]
+  PRECISION:
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: PRECISION, type: held}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  HSCROLL:
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: HSCROLL, type: held}]
+  - [{t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}, {t: ▽, type: trans}]
 combos:
 - p: [12, 13]
   k: LANG2
+  l: [default]
 - p: [16, 17]
   k: LANG1
+  l: [default]
 - p: [0, 1]
   k: ESC
+  l: [default]
 - p: [10, 11]
   k: TAB
+  l: [default]
 - p: [35, 37]
   k: '&to 8'
+  l: [default]
