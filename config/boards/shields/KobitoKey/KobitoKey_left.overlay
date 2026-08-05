@@ -190,7 +190,8 @@
 
     /* デフォルト: Magic Trackpad の2本指移動に近い2次元スクロール。
      * 横は 1/12、縦は 1/15 に間引いてから X/Y を水平/垂直ホイールへ写像する。
-     * 左手側からはオートマウス Layer 4 を発動しない。 */
+     * 同時に安全な機能入口 Layer 13 を 2.5 秒だけ発動する。
+     * クリックを含む Layer 4 は発動しない。 */
     input-processors =
             <&sensor_rotation_left>,
             <&pointer_accel>,
@@ -198,7 +199,8 @@
             <&zip_y_scaler 1 15>,
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_temp_layer 13 2500>;
 
     /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印）
      * keybind の 4 方向判定はパケット単位の |dx| vs |dy| 勝者総取りで
@@ -304,8 +306,8 @@
     /* Layer 1/2/3 の lt 親指キー (33/36/37) は除外しない。
      * Layer 4 が先に解除されることで、低番レイヤーへの hold が
      * オートマウスレイヤーにマスクされずに効く。 */
-    /* 23 (V=精密モード) / 29 ('=横スクロール) は Layer 4 の機能キーなので
-     * 押しても Layer 4 を解除しない */
+    /* Layer 4/13 の機能キーは、長押し判定より先に一時レイヤーが
+     * 解除されないよう除外する。 */
     excluded-positions = <
         5
         6

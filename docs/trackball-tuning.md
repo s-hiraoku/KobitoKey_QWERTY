@@ -387,6 +387,28 @@ Layer 5/6/7 の初回スワイプ改善として左 PMW3610 に `force-awake` �
 - Layer 5/6/7 のジェスチャーと Layer 9 の Cmd+scroll は従来通り左トラックボールで動く
 - Mouse Layer 4 の自動発動は右ポインター操作に集約する
 
+### 追加修正 (2026-08-06) — 左 SCROLL MENU と IME コンボ復旧
+
+左トラックボールから Layer 4 を直接発動すると、通常スクロールの直後に文字キーが
+クリックや戻る操作へ化ける危険がある。一方、Layer 4を発動しない構成では、左トラボ
+だけを触った後に GESTURE / TAB / DESKTOP / ZOOM / HSCROLL のキー位置が Layer 0 の
+文字として処理される。
+
+そこで、左トラックボールはクリックを一切持たない Layer 13 `SCROLL MENU` を2.5秒だけ
+発動する。Y/P/H/;/`'`は tap-preferred（180ms）のhold-tapにし、タップ時は元の文字、
+長押し中はそれぞれ Layer 5/6/7/9/12 を有効にする。右トラックボールの Layer 4 自動発動と、
+Layer 4内の透過キー構成は変更しない。
+
+また、`D+F`（英数）と`J+K`（かな）から `layers = <0>` を外し、全レイヤーで有効に戻した。
+これにより、右トラックボールで Layer 4 が残っている間も IME コンボが先に解決され、
+J位置のMB4（戻る）などへの誤爆を防ぐ。ESC / TAB / BT コンボは Layer 0 限定のままとする。
+
+**効果**:
+- 左トラボを動かした後、そのまま5種類のトラボ機能へ入れる
+- SCROLL MENU中の短いY/P/H/;/`'`入力は通常文字のまま
+- MOUSE Layerのクリックや戻る操作を左スクロールから誤発動しない
+- MOUSE / SCROLL MENUを含む全レイヤーで英数・かな切替が動作する
+
 ## 参考資料
 
 - [zmk-pointing-acceleration README](https://github.com/oleksandrmaslov/zmk-pointing-acceleration)

@@ -57,24 +57,44 @@
             tapping-term-ms = <200>;
             bindings = <&drag_on>, <&kp>;
         };
+
+        /* 左トラボで一時発動する SCROLL MENU 専用ホールドタップ。
+         * タップは通常文字のまま、180ms 長押しで各トラボ機能レイヤーへ入る。
+         * 高番レイヤーの一時発動中でも文字入力を壊さないよう tap-preferred。 */
+        menu_lt: scroll_menu_layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            bindings = <&mo>, <&kp>;
+        };
+
+        /* ZOOM は通常の &mo ではなく、LCMD も同時に保持する zoom_hold を使う。 */
+        menu_zoom: scroll_menu_zoom_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            bindings = <&zoom_hold>, <&kp>;
+        };
     };
 
     combos {
         compatible = "zmk,combos";
 
-        /* 英数/かな: 2 本指の押下が 50ms を超えてズレると発動せず df/jk が
+        /* 英数/かなは全レイヤーで有効。オート発動レイヤー滞在中でも
+         * IME 切替を優先し、マウスボタン等への誤爆を防ぐ。
+         * 2 本指の押下が 50ms を超えてズレると発動せず df/jk が
          * 出るため 80ms に延長。D+F / J+K のロールはローマ字にも英語にも
          * ほぼ出ないので誤発動リスクは低い。まだ取りこぼすなら 100 へ */
         combo_eisu {
             timeout-ms = <80>;
-            layers = <0>;
             key-positions = <12 13>;
             bindings = <&kp LANG2>;
         };
 
         combo_kana {
             timeout-ms = <80>;
-            layers = <0>;
             key-positions = <16 17>;
             bindings = <&kp LANG1>;
         };
@@ -238,6 +258,19 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        /* 左トラボ操作後 2.5 秒だけ発動する安全な機能入口。
+         * タップは元の文字、長押し中だけ各トラボ機能へ入る。
+         * マウスボタンは置かず、左トラボの通常スクロールで誤爆しない構成。 */
+        layer13 {
+            label = "SCROLL MENU";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &menu_lt 5 Y  &trans  &trans  &trans  &menu_lt 6 P
+&trans  &trans  &trans  &trans  &trans  &menu_lt 7 H  &trans  &trans  &trans  &menu_zoom 9 SEMI
+&trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &menu_lt 12 APOS
+&trans  &trans  &trans  &trans  &trans  &trans        &trans  &trans  &trans  &trans
             >;
         };
     };
