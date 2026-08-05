@@ -1,0 +1,1 @@
+zephyr_library_sources(src/input_processor_fixed_temp_layer.c)

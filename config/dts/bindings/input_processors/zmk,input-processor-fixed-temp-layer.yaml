@@ -1,0 +1,5 @@
+description: Input processor that enables a layer for a fixed duration on non-zero input
+
+compatible: "zmk,input-processor-fixed-temp-layer"
+
+include: ip_two_param.yaml

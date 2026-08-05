@@ -200,7 +200,7 @@
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_temp_layer 13 2500>;
+            <&zip_fixed_temp_layer 13 2500>;
 
     /* Layer 5: ジェスチャーモード（keybind → Ctrl+矢印）
      * keybind の 4 方向判定はパケット単位の |dx| vs |dy| 勝者総取りで
@@ -274,6 +274,11 @@
 };
 
 / {
+  /omit-if-no-ref/ zip_fixed_temp_layer: zip_fixed_temp_layer {
+    compatible = "zmk,input-processor-fixed-temp-layer";
+    #input-processor-cells = <2>;
+  };
+
   /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
     compatible = "zmk,input-processor-temp-layer";
     #input-processor-cells = <2>;
