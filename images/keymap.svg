@@ -173,7 +173,9 @@ rect.combo {
 <g transform="translate(532, 28)" class="key keypos-5">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">Y</text>
-</g>
+<a href="#GESTURE">
+<text x="0" y="24" class="key hold layer-activator">GESTURE</text>
+</a></g>
 <g transform="translate(588, 28)" class="key keypos-6">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">U</text>
@@ -189,7 +191,9 @@ rect.combo {
 <g transform="translate(756, 28)" class="key keypos-9">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">P</text>
-</g>
+<a href="#TAB">
+<text x="0" y="24" class="key hold layer-activator">TAB</text>
+</a></g>
 <g transform="translate(28, 84)" class="key keypos-10">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">A</text>
@@ -213,7 +217,9 @@ rect.combo {
 <g transform="translate(532, 84)" class="key keypos-15">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">H</text>
-</g>
+<a href="#DESKTOP">
+<text x="0" y="24" class="key hold layer-activator">DESKTOP</text>
+</a></g>
 <g transform="translate(588, 84)" class="key keypos-16">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">J</text>

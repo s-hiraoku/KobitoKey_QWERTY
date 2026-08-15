@@ -123,7 +123,8 @@
         threshold = <3>;    /* 初動の軽いフリックも拾う */
         tick = <70>;        /* 初回スワイプで発火しやすい累積量 */
         tap-ms = <10>;      /* 再発火チェック窓 < レポート間隔 12ms (gesture と同方針) */
-        wait-ms = <700>;    /* Launchpad / Mission Control の状態遷移完了を待つ */
+        wait-ms = <1800>;   /* F4 はトグル。残スピンの 2 発目と、
+                             * Launchpad 表示直後の誤 F11 を避けるため延長 */
         max_threshold = <50>;  /* 50 + (50*3>>3) = 68 < tick=70 で窓内
                                 * 1 パケット再発火を封じる */
         max_pending_activations = <1>;  /* max_delta = tick * 1 で蓄積を制限 */
@@ -292,8 +293,9 @@
     input-processors =
         <&sensor_rotation_right>,
         <&pointer_accel_right>,
-        <&zip_temp_layer 4 3500>; /* オートマウスレイヤー4と滞留時間(ms)。1500 だとボールを止めてから
-                                   * マウスボタン等を押す前に抜けてしまうことがあったため +2秒 */
+        <&zip_temp_layer 4 8000>; /* オートマウスレイヤー4と滞留時間(ms)。
+                                   * 3500 だと入力欄クリック後に GESTURE/DESKTOP
+                                   * を押す前に Layer 4 が切れ、H/Y がリピートした */
 
     /* Layer 11: 精密モード（&lt 11 V 長押し中）。移動量を 1/2 にしてから
      * accel に渡すので低速域の加速も弱まり、小さい UI を狙いやすくなる */
@@ -303,7 +305,7 @@
             <&sensor_rotation_right>,
             <&zip_xy_scaler 1 2>,
             <&pointer_accel_right>,
-            <&zip_temp_layer 4 3500>;
+            <&zip_temp_layer 4 8000>;
     };
 };
 
