@@ -170,12 +170,15 @@
 
         /* pos 17 (K) 長押し: ドラッグロック開始 (タップは k のまま)
          * pos 23 (V) 長押し: 押している間 右トラボ精密モード (タップは v)
-         * pos 29 (') 長押し: 押している間 左トラボ横スクロール (タップは ') */
+         * pos 29 (') 長押し: 押している間 左トラボ横スクロール (タップは ')
+         * Y/H/P は素の &mo だとオートマウスレイヤー滞在中のタップが無反応に
+         * なる (excluded-positions でレイヤーも解除されない) ため、
+         * Layer 13 と同じ menu_lt でタップ=文字 / 長押し=各レイヤーにする */
         layer4 {
             label = "MOUSE";
             bindings = <
-&trans        &trans        &trans        &trans      &trans  &mo 5   &mkp MB1  &mkp MB3  &mkp MB2  &mo 6
-&trans        &trans        &trans        &trans      &trans  &mo 7   &mkp MB4  &dl 0 K   &mkp MB5  &zoom_hold 9
+&trans        &trans        &trans        &trans      &trans  &menu_lt 5 Y  &mkp MB1  &mkp MB3  &mkp MB2  &menu_lt 6 P
+&trans        &trans        &trans        &trans      &trans  &menu_lt 7 H  &mkp MB4  &dl 0 K   &mkp MB5  &zoom_hold 9
 &trans        &trans        &trans        &lt 11 V    &trans  &trans  &trans    &trans    &trans    &lt 12 APOS
 &trans        &trans        &trans        &trans      &to 0   &trans  &trans    &trans    &to 0     &trans
             >;

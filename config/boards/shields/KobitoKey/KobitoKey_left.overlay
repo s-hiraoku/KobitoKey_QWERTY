@@ -293,9 +293,11 @@
     input-processors =
         <&sensor_rotation_right>,
         <&pointer_accel_right>,
-        <&zip_temp_layer 4 8000>; /* オートマウスレイヤー4と滞留時間(ms)。
+        <&zip_temp_layer 4 5000>; /* オートマウスレイヤー4と滞留時間(ms)。
                                    * 3500 だと入力欄クリック後に GESTURE/DESKTOP
-                                   * を押す前に Layer 4 が切れ、H/Y がリピートした */
+                                   * を押す前に Layer 4 が切れ、H/Y がリピートした。
+                                   * 8000 は Y/H/P の文字が出ない窓が長すぎたため
+                                   * 5000 に短縮 (menu_lt 化でリピート問題は解消済み) */
 
     /* Layer 11: 精密モード（&lt 11 V 長押し中）。移動量を 1/2 にしてから
      * accel に渡すので低速域の加速も弱まり、小さい UI を狙いやすくなる */
@@ -305,7 +307,7 @@
             <&sensor_rotation_right>,
             <&zip_xy_scaler 1 2>,
             <&pointer_accel_right>,
-            <&zip_temp_layer 4 8000>;
+            <&zip_temp_layer 4 5000>;
     };
 };
 

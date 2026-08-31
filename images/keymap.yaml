@@ -90,17 +90,17 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - GESTURE
+    - {t: Y, h: GESTURE}
     - '&mkp MB1'
     - '&mkp MB3'
     - '&mkp MB2'
-    - TAB
+    - {t: P, h: TAB}
   - - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-    - DESKTOP
+    - {t: H, h: DESKTOP}
     - '&mkp MB4'
     - {t: K, h: DRAG}
     - '&mkp MB5'

@@ -224,7 +224,7 @@ BSPC+SYMBOLの同時押しでBluetooth/ボリューム操作レイヤーに移�
     - Layer 6 タブ: threshold=3, tick=100, wait-ms=600
     - Layer 7 デスクトップ: threshold=3, tick=70, wait-ms=1800
   - 連続ズーム（Layer 9）: keybindプロセッサを使わず、`zoom_hold` macroでLCMDを保持しつつ通常スクロールを送出。OSが`Cmd+ホイール`として解釈し、Magic Trackpadのピンチに近い滑らかな連続ズームを実現（pointer_accelが効くため操作感は通常スクロールと同等）
-  - 一時レイヤー（zip_temp_layer）: 右トラックボールは Layer 4を8秒、左トラックボールは安全なLayer 13を2.5秒発動。`require-prior-idle-ms`=500msでタイピング中の誤発動を抑制
+  - 一時レイヤー（zip_temp_layer）: 右トラックボールは Layer 4を5秒、左トラックボールは安全なLayer 13を2.5秒発動。`require-prior-idle-ms`=500msでタイピング中の誤発動を抑制
   - `excluded-positions`: マウスボタン、Layer 5/6/7/9 への操作キー、明示的な `to0`、一部修飾キーを除外。Layer 1/2/3 の lt 親指キーは除外せず、オートマウス Layer 4 から直接移動できるようにしている
 
 ## LED色
