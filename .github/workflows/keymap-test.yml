@@ -1,0 +1,104 @@
+name: Keymap behavior tests
+
+# ZMK の native_posix_64 テストハーネスで、キーマップの「振る舞い」を検証する。
+# ビルドが通るかではなく、押下シーケンスに対してどの HID イベントが出るかを
+# スナップショットと突き合わせる。hold-tap / retro-tap / combo のような、
+# ソースを読まないと分からない挙動の回帰を止めるのが目的。
+#
+# 手元で回す手順とテストの書き方は .claude/skills/verify-kobitokey/ を参照。
+
+on:
+  push:
+    paths:
+      - "tests/**"
+      - "config/KobitoKey.keymap"
+      - ".github/workflows/keymap-test.yml"
+  pull_request:
+    paths:
+      - "tests/**"
+      - "config/KobitoKey.keymap"
+      - ".github/workflows/keymap-test.yml"
+  workflow_dispatch:
+    inputs:
+      auto_accept:
+        description: "スナップショットを再生成して artifact に上げる (検証はしない)"
+        type: boolean
+        default: false
+
+jobs:
+  collect-tests:
+    runs-on: ubuntu-latest
+    outputs:
+      test-dirs: ${{ steps.find.outputs.test-dirs }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: find
+        run: |
+          cd tests
+          DIRS=$(ls -d */ | sed 's#/##' | jq -R -s -c 'split("\n")[:-1]')
+          echo "test-dirs=${DIRS}" >> $GITHUB_OUTPUT
+
+  run-tests:
+    needs: collect-tests
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/zmkfirmware/zmk-build-arm:3.5
+    strategy:
+      fail-fast: false
+      matrix:
+        test: ${{ fromJSON(needs.collect-tests.outputs.test-dirs) }}
+    steps:
+      - name: Checkout keymap repo
+        uses: actions/checkout@v4
+        with:
+          path: keymap
+
+      - name: Checkout ZMK
+        uses: actions/checkout@v4
+        with:
+          repository: zmkfirmware/zmk
+          # keymap 側の config/west.yml が固定している ZMK のリビジョンに合わせる
+          ref: v0.3
+          path: zmk
+
+      - name: Cache west modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            modules/
+            tools/
+            zephyr/
+            bootloader/
+          key: ${{ runner.os }}-zmk-v0.3-${{ hashFiles('zmk/app/west.yml') }}
+          restore-keys: ${{ runner.os }}-zmk-v0.3-
+
+      - name: west init / update
+        run: |
+          west init -l zmk/app
+          west update --fetch-opt=--filter=tree:0
+          west zephyr-export
+
+      - name: Run ${{ matrix.test }}
+        env:
+          ZMK_SRC_DIR: ${{ github.workspace }}/zmk/app
+          ZMK_BUILD_DIR: ${{ github.workspace }}/build
+          ZMK_TESTS_VERBOSE: "1"
+          # auto_accept 時はスナップショットを再生成する (検証にはならない)
+          ZMK_TESTS_AUTO_ACCEPT: ${{ inputs.auto_accept && 'y' || '' }}
+        run: |
+          ./zmk/app/run-test.sh "${GITHUB_WORKSPACE}/keymap/tests/${{ matrix.test }}"
+
+      - name: Upload regenerated snapshot
+        if: ${{ inputs.auto_accept }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot-${{ matrix.test }}
+          path: keymap/tests/${{ matrix.test }}/keycode_events.snapshot
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: log-${{ matrix.test }}
+          path: build/tests/**/*.log
+          if-no-files-found: ignore

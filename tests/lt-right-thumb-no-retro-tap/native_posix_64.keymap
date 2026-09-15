@@ -1,0 +1,68 @@
+/*
+ * 右親指 Enter (config/KobitoKey.keymap の lt_r) の挙動を固定する。
+ *
+ * lt_r は lt_l と同じパラメータだが retro-tap を「付けない」。Layer 2/3 に
+ * 入ろうとして思い直しただけで Enter が飛ぶ実害を避けるための判断で、
+ * 誰かが対称性を理由に retro-tap を足すのを防ぐのがこのテストの役割。
+ *
+ * キー位置 (2x2 mock kscan, position = row*2 + col):
+ *   0 = lt_r 1 RET     1 = LCMD
+ *   2 = A / Layer 1 で N1
+ *   3 = LCTRL
+ */
+
+#include <dt-bindings/zmk/keys.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/kscan_mock.h>
+
+/ {
+    behaviors {
+        /* config/KobitoKey.keymap の lt_r と同一パラメータに保つこと。
+         * 乖離は scripts/doctor.sh が検出する。 */
+        lt_r: lt_right_thumb {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <180>;
+            quick-tap-ms = <125>;
+            require-prior-idle-ms = <90>;
+            bindings = <&mo>, <&kp>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &lt_r 1 RET  &kp LCMD
+                &kp A        &kp LCTRL>;
+        };
+
+        layer1 {
+            bindings = <
+                &trans   &trans
+                &kp N1   &trans>;
+        };
+    };
+};
+
+&kscan {
+    events = <
+        /* A: 短いタップ -> RET (従来どおり) */
+        ZMK_MOCK_PRESS(0,0,10)
+        ZMK_MOCK_RELEASE(0,0,400)
+
+        /* B: 単独長押しのまま離す -> retro-tap が無いので「何も出ない」。
+         *    ここで RET が出るようになったら lt_r に retro-tap が
+         *    付いた (= 意図しない変更) というシグナル。 */
+        ZMK_MOCK_PRESS(0,0,400)
+        ZMK_MOCK_RELEASE(0,0,400)
+
+        /* C: 長押し + 他キー -> Layer 1 が発動し N1 が出る */
+        ZMK_MOCK_PRESS(0,0,400)
+        ZMK_MOCK_PRESS(1,0,10)
+        ZMK_MOCK_RELEASE(1,0,10)
+        ZMK_MOCK_RELEASE(0,0,10)
+    >;
+};
