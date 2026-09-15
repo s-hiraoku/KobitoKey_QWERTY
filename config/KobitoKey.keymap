@@ -292,15 +292,15 @@
  * 連続入力すると hold 誤判定されやすくなるため、tapping-term を 180ms
  * と短めにし、quick-tap-ms=125 で連続タップ時の取りこぼしを救う。
  *
- * Bluetooth 接続時に LCMD+Space の Space が抜ける症状の対策として、
- * require-prior-idle-ms と hold-trigger-key-positions を追加。
- * 左親指の lt 1 SPACE (pos 33) は右手キー (pos 5-9,15-19,25-29,35-39)
- * を押した時だけ hold 判定し、左手側のキー (LCMD/LALT 等) の直後は
- * tap (=Space) として確定させる。右親指の lt 2 ENTER (pos 36) /
- * lt 3 RSHFT (pos 37) は逆に左手キーでのみ hold 判定する。
  * require-prior-idle-ms は当初 150ms だったが、Layer 切替の反応が
  * 鈍く感じたため 90ms に短縮。タイピング後 90ms 経てば hold 判定が
- * 通常通り効くので、文章中の親指 lt も実用域。 */
+ * 通常通り効くので、文章中の親指 lt も実用域。
+ *
+ * 注意: require-prior-idle-ms は修飾キーでは効かない (ZMK の
+ * keycode_state_changed_listener は !is_mod() のキーでしか last_tapped を
+ * 更新しない)。Cmd を押しっぱなしで親指 lt を 180ms 保持すると hold が
+ * 確定して文字が消える。左親指の Space だけは lt_l の retro-tap で
+ * 救ってある。 */
 &lt {
     flavor = "hold-preferred";
     tapping-term-ms = <180>;
@@ -320,7 +320,20 @@
 
 / {
     behaviors {
-        /* 左親指用 lt: 右手キーが押された時だけ hold (Layer) 確定 */
+        /* 左親指 lt。retro-tap は他のキーを押さずに離した時だけ tap へ
+         * ロールバックするので、Cmd+Ctrl+Space / Cmd+Space の Space が
+         * 消えなくなる (修飾キーは Space より先に押されるため hold-tap の
+         * 言う『他のキーの押下』に数えられない)。Layer 1 の発動は次のキーを
+         * 押す瞬間まで保留されるだけなので使い勝手は変わらない。
+         * 副作用: 長押し中は Layer 1 未発動なので LED が光らない。
+         * 離す時は Space を先に。修飾キーを先に離すと hold へ昇格する。
+         *
+         * positional hold-tap (hold-trigger-key-positions +
+         * hold-trigger-on-release) は復活させないこと。hold-preferred が
+         * 他キーの『押下』で hold を確定するのに対し、位置が記録されるのは
+         * 『離した』時なので decide_positional_hold が常に空振りする。
+         * そもそも positional は lt より後に押されたキーしか見ないため、
+         * 修飾キーを先に押す並びは原理的に対象外。 */
         lt_l: lt_left_thumb {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -329,11 +342,11 @@
             quick-tap-ms = <125>;
             require-prior-idle-ms = <90>;
             bindings = <&mo>, <&kp>;
-            hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 35 36 37 38 39>;
-            hold-trigger-on-release;
+            retro-tap;
         };
 
-        /* 右親指用 lt: 左手キーが押された時だけ hold (Layer) 確定 */
+        /* 右親指 lt。retro-tap は付けない。Layer 2/3 に入ろうとして
+         * 思い直しただけで Enter が飛ぶ実害の方が大きいため。 */
         lt_r: lt_right_thumb {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -342,8 +355,6 @@
             quick-tap-ms = <125>;
             require-prior-idle-ms = <90>;
             bindings = <&mo>, <&kp>;
-            hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32 33 34>;
-            hold-trigger-on-release;
         };
     };
 };

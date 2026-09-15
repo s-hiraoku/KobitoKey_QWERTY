@@ -168,6 +168,8 @@ zettaface/zmk-input-processor-keybind のソースを読んで確認した 2 連
 2. `tap-ms` 後に press_work が再実行され、その窓内に再び tick 分溜まっていると release → wait-ms スリープ → **2 発目の press** が走る
 3. つまり 2 連発は「tap-ms 窓内の再蓄積」だけで起きる。フリックのピーク（1 パケット 60〜90 相当）が窓に落ちると tick=130 でも突破されていた
 
+2026-09-15 追記: 上記 3 は誤り。経路はもう 1 本あった（「wait-ms 窓での 2 連発」を参照）。
+
 対策（`gesture_keybind`）:
 
 ```dts
@@ -201,6 +203,35 @@ Layer 5 の構造的 2 連発対策を Layer 6/7 にも展開した:
   再スケジュールに置き換え。外から見える発火タイミングは従来と同じで、
   ワークキューをブロックしない
 - `west.yml` の remote を zettaface から s-hiraoku に変更
+
+### wait-ms 窓での 2 連発 (2026-09-15)
+
+「Mission Control が開いた直後に勝手に閉じる」の原因。2026-07-04 に潰したのは
+`tap-ms` 窓の再蓄積だけで、`wait-ms` 窓にもう 1 本の経路が残っていた。
+
+fork 前 (`k_sleep` 版) から一貫して存在した挙動:
+
+1. 発火 → `tap-ms` 後にキーを release → `wait-ms` の待機に入る
+2. **待機中も `zip_keybind_handle_event` は `delta_x/y` に累積を続ける**
+3. 待機が明けた瞬間、溜まった分が `tick` を超えていれば **2 発目が発火する**
+
+スワイプ後の指のフォロースルーやボールの残スピンで、600ms のうちに tick=100 は
+簡単に到達する。Ctrl+Up はトグルなので 2 発目で Mission Control が閉じる。
+
+Layer 7 の `wait-ms` を 700 → 1800 に伸ばしたのは、この症状への対症療法だった。
+
+修正 (fork `non-blocking-wait`, commit `11cfe0c`):
+
+- `zip_keybind_handle_event` の先頭で、`wait_until` 未満の間は入力を破棄する
+- 待機に入る時点で `delta_x/y` をクリアし、「待機明けに発火させるための
+  再スケジュール」を削除
+
+これで tap-ms 窓・wait-ms 窓のどちらの余剰も次の発火に化けなくなる。
+副作用として `track-remainders` は待機をまたげなくなるが、本リポジトリの
+keybind ではいずれも未指定 (false) なので影響しない。
+
+実機で確認できたら Layer 7 の `wait-ms = <1800>` を 600 前後へ戻せるはず
+(未検証なので現状は 1800 のまま)。
 
 ### オートマウスレイヤー滞留時間 3500ms (2026-07-04)
 
