@@ -1,0 +1,3 @@
+# Claude Code プラグインが同期する規約ファイル。生成物なのでコミットしない
+# (.claude/skills/ は手で書いた資産なのでコミット対象)
+.claude/rules/

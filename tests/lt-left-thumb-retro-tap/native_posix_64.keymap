@@ -1,0 +1,85 @@
+/*
+ * 左親指 Space (config/KobitoKey.keymap の lt_l) の挙動を固定する。
+ *
+ * 実機の pos 33 = `&lt_l 1 SPACE`。修飾キーは Space より「先」に押されるため
+ * hold-tap の言う『他のキーの押下』に数えられず、retro-tap が無いと 180ms 超で
+ * 必ず Layer 1 が確定して Space が消える (Cmd+Ctrl+Space の絵文字ピッカーが
+ * 開かない症状)。retro-tap がその救済になっていることと、既知の限界
+ * (Space より先に修飾キーを離すと救済されない) の両方をここで固定する。
+ *
+ * キー位置 (2x2 mock kscan, position = row*2 + col):
+ *   0 = lt_l 1 SPACE   1 = LCMD
+ *   2 = A / Layer 1 で LEFT
+ *   3 = LCTRL
+ */
+
+#include <dt-bindings/zmk/keys.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/kscan_mock.h>
+
+/ {
+    behaviors {
+        /* config/KobitoKey.keymap の lt_l と同一パラメータに保つこと。
+         * 乖離は scripts/doctor.sh が検出する。 */
+        lt_l: lt_left_thumb {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <180>;
+            quick-tap-ms = <125>;
+            require-prior-idle-ms = <90>;
+            bindings = <&mo>, <&kp>;
+            retro-tap;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &lt_l 1 SPACE  &kp LCMD
+                &kp A          &kp LCTRL>;
+        };
+
+        layer1 {
+            bindings = <
+                &trans    &trans
+                &kp LEFT  &trans>;
+        };
+    };
+};
+
+&kscan {
+    events = <
+        /* A: 短いタップ -> SPACE (従来どおり) */
+        ZMK_MOCK_PRESS(0,0,10)
+        ZMK_MOCK_RELEASE(0,0,400)
+
+        /* B: 単独長押しのまま離す -> retro-tap で SPACE が出る */
+        ZMK_MOCK_PRESS(0,0,400)
+        ZMK_MOCK_RELEASE(0,0,400)
+
+        /* C: 長押し + 他キー -> Layer 1 が発動し LEFT が出る (Space は出ない) */
+        ZMK_MOCK_PRESS(0,0,400)
+        ZMK_MOCK_PRESS(1,0,10)
+        ZMK_MOCK_RELEASE(1,0,10)
+        ZMK_MOCK_RELEASE(0,0,400)
+
+        /* D: Cmd を押したまま Space を長押しし、Space から先に離す
+         *    -> retro-tap が成立し、Cmd を保持したまま SPACE が出る
+         *    (これが絵文字ピッカーが開くケース) */
+        ZMK_MOCK_PRESS(0,1,10)
+        ZMK_MOCK_PRESS(0,0,400)
+        ZMK_MOCK_RELEASE(0,0,10)
+        ZMK_MOCK_RELEASE(0,1,400)
+
+        /* E: 既知の限界 — Cmd を Space より先に離すと、その離上イベントが
+         *    update_hold_status_for_retro_tap で hold へ昇格させるため
+         *    SPACE は出ない。直ったと誤認しないようここで固定する。 */
+        ZMK_MOCK_PRESS(0,1,10)
+        ZMK_MOCK_PRESS(0,0,400)
+        ZMK_MOCK_RELEASE(0,1,10)
+        ZMK_MOCK_RELEASE(0,0,10)
+    >;
+};
