@@ -1,0 +1,91 @@
+/*
+ * Y/H/P の menu_lt (config/KobitoKey.keymap の scroll_menu_layer_tap)。
+ *
+ * この位置は「高番レイヤー滞在中にタップしても文字が出ない」不具合を
+ * 過去 2 回起こしている (e1577a6, b6209b8)。原因はどちらも素の `&mo N` を
+ * 置いていたこと。`&mo` はタップしても何も出力しないので、トラックボール
+ * 由来の一時レイヤー滞在中はこの位置が無反応になっていた。
+ * menu_lt (tap-preferred) 化がその対策で、シナリオ C がそれを固定する。
+ *
+ * 注意: 実機の Layer 4/13 はトラックボール入力で発動するが、mock kscan
+ * からは駆動できない。ここでは `&mo` で「同じレイヤーが乗った状態」を作って
+ * 代用している。近似なので、zip_temp_layer の excluded-positions や滞留
+ * タイマーの挙動までは再現できない (features/trackball-menu-keys.md 参照)。
+ *
+ * キー位置 (2x2 mock kscan, position = row*2 + col):
+ *   0 = menu_lt 1 Y      1 = mo 2 (オートマウスレイヤー相当への入口)
+ *   2 = A / Layer 1 で N1
+ *   3 = (未使用)
+ */
+
+#include <dt-bindings/zmk/keys.h>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/kscan_mock.h>
+
+/ {
+    behaviors {
+        /* config/KobitoKey.keymap の menu_lt と同一に保つこと
+         * (doctor.sh が検査する) */
+        menu_lt: scroll_menu_layer_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <180>;
+            bindings = <&mo>, <&kp>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &menu_lt 1 Y  &mo 2
+                &kp A         &none>;
+        };
+
+        /* GESTURE (実機 Layer 5) 相当。N1 が出れば入れたと分かる */
+        layer1 {
+            bindings = <
+                &trans   &trans
+                &kp N1   &trans>;
+        };
+
+        /* MOUSE (実機 Layer 4) 相当。実機と同じく同じ位置に menu_lt を置く。
+         * ここを &mo 1 にすると過去の不具合が再現する */
+        layer2 {
+            bindings = <
+                &menu_lt 1 Y  &trans
+                &trans        &trans>;
+        };
+    };
+};
+
+&kscan {
+    events = <
+        /* A: 素の状態でタップ -> Y */
+        ZMK_MOCK_PRESS(0,0,10)
+        ZMK_MOCK_RELEASE(0,0,400)
+
+        /* B: 素の状態で長押し -> Layer 1 に入り N1。Y は出ない */
+        ZMK_MOCK_PRESS(0,0,400)
+        ZMK_MOCK_PRESS(1,0,10)
+        ZMK_MOCK_RELEASE(1,0,10)
+        ZMK_MOCK_RELEASE(0,0,400)
+
+        /* C: Layer 2 滞在中にタップ -> Y が出る (回帰の本命)。
+         *    ここで Y が消えたら menu_lt が &mo に戻された疑い */
+        ZMK_MOCK_PRESS(0,1,10)
+        ZMK_MOCK_PRESS(0,0,10)
+        ZMK_MOCK_RELEASE(0,0,10)
+        ZMK_MOCK_RELEASE(0,1,400)
+
+        /* D: Layer 2 滞在中に長押し -> Layer 1 に入れる (機能は死んでいない) */
+        ZMK_MOCK_PRESS(0,1,10)
+        ZMK_MOCK_PRESS(0,0,400)
+        ZMK_MOCK_PRESS(1,0,10)
+        ZMK_MOCK_RELEASE(1,0,10)
+        ZMK_MOCK_RELEASE(0,0,10)
+        ZMK_MOCK_RELEASE(0,1,10)
+    >;
+};

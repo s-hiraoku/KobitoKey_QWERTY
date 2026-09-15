@@ -54,9 +54,9 @@ prop_of() {
 echo
 echo "== 実機キーマップとテストの behavior 乖離 =="
 check_drift() {
-  local node="$1" test_file="$2"
+  local node="$1" test_file="$2"; shift 2
   [ -f "$test_file" ] || { bad "$node" "テストが無い: ${test_file#$REPO_ROOT/}"; return; }
-  for prop in flavor tapping-term-ms quick-tap-ms require-prior-idle-ms retro-tap; do
+  for prop in "$@"; do
     local a b
     a="$(prop_of "$KEYMAP" "$node" "$prop")"
     b="$(prop_of "$test_file" "$node" "$prop")"
@@ -68,8 +68,14 @@ check_drift() {
   done
 }
 
-check_drift lt_left_thumb  "$TESTS_DIR/lt-left-thumb-retro-tap/native_posix_64.keymap"
-check_drift lt_right_thumb "$TESTS_DIR/lt-right-thumb-no-retro-tap/native_posix_64.keymap"
+HT_PROPS="flavor tapping-term-ms quick-tap-ms require-prior-idle-ms retro-tap"
+CB_PROPS="timeout-ms key-positions bindings layers"
+
+check_drift lt_left_thumb  "$TESTS_DIR/lt-left-thumb-retro-tap/native_posix_64.keymap"        $HT_PROPS
+check_drift lt_right_thumb "$TESTS_DIR/lt-right-thumb-no-retro-tap/native_posix_64.keymap"    $HT_PROPS
+check_drift scroll_menu_layer_tap "$TESTS_DIR/menu-lt-tap-on-higher-layer/native_posix_64.keymap" $HT_PROPS
+check_drift combo_eisu     "$TESTS_DIR/ime-combos/native_posix_64.keymap"                     $CB_PROPS
+check_drift combo_kana     "$TESTS_DIR/ime-combos/native_posix_64.keymap"                     $CB_PROPS
 
 echo
 if [ $rc -eq 0 ]; then
