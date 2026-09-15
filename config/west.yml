@@ -41,11 +41,12 @@ manifest:
       revision: v0.3
 
     # Trackball keybind processor
-    # フォーク: wait-ms の k_sleep がシステムワークキューを 600-700ms
-    # ブロックする問題を deferred work 化で修正 (non-blocking-wait ブランチ)
+    # フォーク (non-blocking-wait ブランチ): wait-ms の k_sleep による
+    # ワークキューのブロックと、wait-ms 窓での 2 連発を修正。
+    # 詳細は docs/trackball-tuning.md
     - name: zmk-input-processor-keybind
       remote: s-hiraoku
-      revision: a7c64b4570ebdc476e83dbea0d3a16ec89e52af3
+      revision: 11cfe0c939e33a8c6df9ad593e0ab7129365ac8c
 
     # Trackball acceleration。元: main ブランチ
     - name: zmk-pointing-acceleration
