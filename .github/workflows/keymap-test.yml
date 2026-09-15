@@ -61,24 +61,28 @@ jobs:
           ref: v0.3
           path: zmk
 
+      # west init -l zmk/app は topdir を zmk/ に作るので、modules 等も zmk/ 配下に来る
       - name: Cache west modules
         uses: actions/cache@v4
         with:
           path: |
-            modules/
-            tools/
-            zephyr/
-            bootloader/
+            zmk/modules/
+            zmk/tools/
+            zmk/zephyr/
+            zmk/bootloader/
           key: ${{ runner.os }}-zmk-v0.3-${{ hashFiles('zmk/app/west.yml') }}
           restore-keys: ${{ runner.os }}-zmk-v0.3-
 
       - name: west init / update
+        working-directory: zmk
         run: |
-          west init -l zmk/app
+          west init -l app
           west update --fetch-opt=--filter=tree:0
           west zephyr-export
 
       - name: Run ${{ matrix.test }}
+        # west がワークスペースを見つけられるよう topdir (zmk/) 配下で実行する
+        working-directory: zmk
         env:
           ZMK_SRC_DIR: ${{ github.workspace }}/zmk/app
           ZMK_BUILD_DIR: ${{ github.workspace }}/build
@@ -86,7 +90,7 @@ jobs:
           # auto_accept 時はスナップショットを再生成する (検証にはならない)
           ZMK_TESTS_AUTO_ACCEPT: ${{ inputs.auto_accept && 'y' || '' }}
         run: |
-          ./zmk/app/run-test.sh "${GITHUB_WORKSPACE}/keymap/tests/${{ matrix.test }}"
+          ./app/run-test.sh "${GITHUB_WORKSPACE}/keymap/tests/${{ matrix.test }}"
 
       - name: Upload regenerated snapshot
         if: ${{ inputs.auto_accept }}
